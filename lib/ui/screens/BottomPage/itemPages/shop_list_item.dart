@@ -19,6 +19,7 @@ class _ShopPageListState extends State<ShopPageList> {
   @override
   void initState() {
     super.initState();
+
     BlocProvider.of<FavoriteCubit>(context).getFavoriteProduct();
   }
 
@@ -34,7 +35,7 @@ class _ShopPageListState extends State<ShopPageList> {
           ),
         );
         if (back == "setState") {
-          context.read<FavoriteCubit>().getFavoriteProduct();
+          BlocProvider.of<FavoriteCubit>(context).getFavoriteProduct();
         }
       },
       child: Padding(

@@ -19,6 +19,7 @@ class _ShopPageGridState extends State<ShopPageGrid> {
   @override
   void initState() {
     super.initState();
+    BlocProvider.of<FavoriteCubit>(context).getFavoriteProduct();
   }
 
   @override
@@ -33,7 +34,7 @@ class _ShopPageGridState extends State<ShopPageGrid> {
           ),
         );
         if (back == "setState") {
-         context.read<FavoriteCubit>().getFavoriteProduct();
+          BlocProvider.of<FavoriteCubit>(context).getFavoriteProduct();
         }
       },
       child: Padding(
