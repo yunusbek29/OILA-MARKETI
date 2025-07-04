@@ -17,6 +17,12 @@ class ShopPageList extends StatefulWidget {
 
 class _ShopPageListState extends State<ShopPageList> {
   @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<FavoriteCubit>(context).getFavoriteProduct();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(30),
@@ -28,7 +34,7 @@ class _ShopPageListState extends State<ShopPageList> {
           ),
         );
         if (back == "setState") {
-          BlocProvider.of<FavoriteCubit>(context).getFavoriteProduct();
+          context.read<FavoriteCubit>().getFavoriteProduct();
         }
       },
       child: Padding(

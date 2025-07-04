@@ -60,10 +60,7 @@ class _FavoritePageState extends State<FavoritePage> {
                         }
                       },
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 6,
-                        ),
+                        padding: const EdgeInsets.only(left: 20, right: 20),
                         child: Container(
                           padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(

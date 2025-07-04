@@ -10,7 +10,6 @@ class FavoriteCubit extends Cubit<FavoriteState> {
   Future<void> getFavoriteProduct() async {
     List<ProductModel> liked = [];
 
-    state.favoriteModel == [];
     for (var product in state.productModel) {
       final isLiked = await SharedPref.getBool('isLiked${product.id}') ?? false;
       if (isLiked) {
