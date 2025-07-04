@@ -19,6 +19,12 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   @override
+  void initState() {
+    super.initState();
+    getBool();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
@@ -32,22 +38,15 @@ class _DetailPageState extends State<DetailPage> {
           },
         ),
         actions: [
-          widget.product.isLiked
-              ? IconButton(
-                  onPressed: () async {
-                    await SharedPref.setBool(
-                      "isLiked${widget.product.id}",
-                      widget.product.isLiked,
-                    );
-                  },
-                  icon: Icon(Icons.favorite, color: AppColors.red),
-                )
-              : IconButton(
-                  onPressed: () async {
-                    await SharedPref.remove('isLiked${widget.product.id}');
-                  },
-                  icon: Icon(Icons.favorite_border, color: AppColors.red),
-                ),
+          IconButton(
+            onPressed: () async {
+              setBool();
+            },
+            icon: Icon(
+              widget.product.isLiked ? Icons.favorite : Icons.favorite_border,
+              color: AppColors.red,
+            ),
+          ),
         ],
       ),
       body: BlocBuilder<DetailCubit, DetailState>(
@@ -225,5 +224,24 @@ class _DetailPageState extends State<DetailPage> {
         ),
       ),
     );
+  }
+
+  void getBool() async {
+    final liked =
+        await SharedPref.getBool('isLiked${widget.product.id}') ?? false;
+    setState(() {
+      widget.product.isLiked = liked;
+    });
+  }
+
+  void setBool() async {
+    if (widget.product.isLiked) {
+      await SharedPref.remove('isLiked${widget.product.id}');
+    } else {
+      await SharedPref.setBool('isLiked${widget.product.id}', true);
+    }
+    setState(() {
+      widget.product.isLiked = !widget.product.isLiked;
+    });
   }
 }

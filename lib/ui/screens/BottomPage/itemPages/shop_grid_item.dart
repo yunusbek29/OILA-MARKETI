@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_rating_bar/custom_rating_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/bloc/favorite_bloc/favorite_cubit.dart';
 import 'package:flutter_application_1/config/app_colors.dart';
 import 'package:flutter_application_1/data/repository/models/product_model.dart';
 import 'package:flutter_application_1/ui/screens/pages/detail_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ShopPageGrid extends StatefulWidget {
   final ProductModel product;
@@ -23,13 +25,16 @@ class _ShopPageGridState extends State<ShopPageGrid> {
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(30),
-      onTap: () {
-        Navigator.push(
+      onTap: () async {
+        final back = await Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => DetailPage(product: widget.product),
           ),
         );
+        if (back == "setState") {
+          BlocProvider.of<FavoriteCubit>(context).getFavoriteProduct();
+        }
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),

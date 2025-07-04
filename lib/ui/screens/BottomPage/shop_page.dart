@@ -119,24 +119,4 @@ class _ShopPageState extends State<ShopPage> {
       ),
     );
   }
-
-  // void getLoadList() async {
-  //   setState(() {
-  //     isLoading = true;
-  //   });
-
-  //   final respone = await Product.GET(Product.GET_PRODUCT, {});
-
-  //   if (respone != null) {
-  //     final newProduct = userFromJson(respone);
-  //     setState(() {
-  //       productmodel = newProduct;
-  //       isLoading = false;
-  //     });
-  //   } else {
-  //     setState(() {
-  //       isLoading = false;
-  //     });
-  //   }
-  // }
 }

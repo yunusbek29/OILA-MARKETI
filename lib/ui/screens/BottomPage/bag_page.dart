@@ -187,7 +187,7 @@ class _BagPageState extends State<BagPage> {
                                                       if (product.count > 1) {
                                                         product.count--;
                                                       } else {
-                                                        bagList.remove(product);
+                                                        // bagList.remove(product);
                                                         BlocProvider.of<
                                                               BagCubit
                                                             >(context)
@@ -220,16 +220,16 @@ class _BagPageState extends State<BagPage> {
                       color: AppColors.black,
                       child: Row(
                         children: [
-                          Expanded(
-                            child: Text(
-                              'Total Product: ${bagList.length}',
-                              style: TextStyle(
-                                color: AppColors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
+                          // Expanded(
+                          //   child: Text(
+                          //     'Total Product: ${bagList.length}',
+                          //     style: TextStyle(
+                          //       color: AppColors.white,
+                          //       fontSize: 20,
+                          //       fontWeight: FontWeight.bold,
+                          //     ),
+                          //   ),
+                          // ),
                           Text(
                             'Total Price: \$${BlocProvider.of<BagCubit>(context).getTotalPrice().toString()}',
                             style: TextStyle(
