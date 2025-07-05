@@ -6,7 +6,6 @@ import 'package:flutter_application_1/bloc/bag_bloc/bag_state.dart';
 import 'package:flutter_application_1/config/app_colors.dart';
 import 'package:flutter_application_1/config/app_texts.dart';
 import 'package:flutter_application_1/ui/screens/pages/detail_page.dart';
-import 'package:flutter_application_1/ui/screens/pages/global_list.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BagPage extends StatefulWidget {
@@ -48,9 +47,9 @@ class _BagPageState extends State<BagPage> {
                     Expanded(
                       child: ListView.builder(
                         physics: BouncingScrollPhysics(),
-                        itemCount: bagList.length,
+                        itemCount: state.bagList.length,
                         itemBuilder: (context, index) {
-                          final product = bagList[index];
+                          final product = state.bagList[index];
                           return InkWell(
                             onTap: () async {
                               var result = await Navigator.push(
@@ -61,7 +60,7 @@ class _BagPageState extends State<BagPage> {
                                 ),
                               );
                               if (result == "setState") {
-                                setState(() {});
+                              setState(() {});
                               }
                             },
                             child: Padding(
@@ -187,7 +186,7 @@ class _BagPageState extends State<BagPage> {
                                                       if (product.count > 1) {
                                                         product.count--;
                                                       } else {
-                                                        // bagList.remove(product);
+                                                      state.bagList.remove(product);
                                                         BlocProvider.of<
                                                               BagCubit
                                                             >(context)
@@ -220,16 +219,16 @@ class _BagPageState extends State<BagPage> {
                       color: AppColors.black,
                       child: Row(
                         children: [
-                          // Expanded(
-                          //   child: Text(
-                          //     'Total Product: ${bagList.length}',
-                          //     style: TextStyle(
-                          //       color: AppColors.white,
-                          //       fontSize: 20,
-                          //       fontWeight: FontWeight.bold,
-                          //     ),
-                          //   ),
-                          // ),
+                          Expanded(
+                            child: Text(
+                              'Total Product: ${state.bagList.length}',
+                              style: TextStyle(
+                                color: AppColors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
                           Text(
                             'Total Price: \$${BlocProvider.of<BagCubit>(context).getTotalPrice().toString()}',
                             style: TextStyle(

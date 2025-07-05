@@ -34,7 +34,9 @@ class _FavoritePageState extends State<FavoritePage> {
       ),
       body: BlocBuilder<FavoriteCubit, FavoriteState>(
         builder: (context, state) {
-          return state.favoriteModel.isEmpty
+          return state.isLoading
+              ? Center(child: CircularProgressIndicator())
+              : state.favoriteModel.isEmpty
               ? const Center(
                   child: Text(
                     AppTexts.nofavorite,
@@ -60,7 +62,11 @@ class _FavoritePageState extends State<FavoritePage> {
                         }
                       },
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 20),
+                        padding: const EdgeInsets.only(
+                          left: 10,
+                          right: 10,
+                          top: 10,
+                        ),
                         child: Container(
                           padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(

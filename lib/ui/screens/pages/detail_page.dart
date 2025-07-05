@@ -6,7 +6,6 @@ import 'package:flutter_application_1/bloc/detail_bloc/detail_state.dart';
 import 'package:flutter_application_1/config/app_colors.dart';
 import 'package:flutter_application_1/data/local/shared/shared_pref.dart';
 import 'package:flutter_application_1/data/repository/models/product_model.dart';
-import 'package:flutter_application_1/ui/screens/pages/global_list.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DetailPage extends StatefulWidget {
@@ -165,63 +164,64 @@ class _DetailPageState extends State<DetailPage> {
                     ],
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.orange,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          height: 60,
+
+                          child: ElevatedButton(
+                            onPressed: () {
+                              ScaffoldMessenger.of(context)
+                                ..hideCurrentSnackBar()
+                                ..showSnackBar(
+                                  SnackBar(
+                                    content: Row(
+                                      children: [
+                                        Icon(Icons.info),
+                                        Text("Mahsulot qoshildi"),
+                                      ],
+                                    ),
+                                    showCloseIcon: true,
+                                  ),
+                                );
+
+                              BlocProvider.of<DetailCubit>(
+                                context,
+                              ).addToBag(widget.product);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.orange,
+                              foregroundColor: AppColors.white,
+                              minimumSize: Size(double.infinity, 60),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                            ),
+                            child: Text(
+                              "ADD TO BAG",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           );
         },
-      ),
-
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(left: 30),
-        child: Row(
-          children: [
-            Expanded(
-              flex: 2,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: AppColors.orange,
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                height: 60,
-
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (!bagList.contains(widget.product)) {
-                      bagList.add(widget.product);
-                    } else {
-                      widget.product.count++;
-                    }
-                    ScaffoldMessenger.of(context)
-                      ..hideCurrentSnackBar()
-                      ..showSnackBar(
-                        SnackBar(
-                          content: Row(
-                            children: [
-                              Icon(Icons.info),
-                              Text("Mahsulot qoshildi"),
-                            ],
-                          ),
-                          showCloseIcon: true,
-                        ),
-                      );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.orange,
-                    foregroundColor: AppColors.white,
-                    minimumSize: Size(double.infinity, 60),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                  ),
-                  child: Text(
-                    "ADD TO BAG",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

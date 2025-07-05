@@ -31,8 +31,4 @@ class FavoriteCubit extends Cubit<FavoriteState> {
       emit(state.copyWith(isLoading: false));
     }
   }
-
-  void remove(String key) async {
-    
-  }
 }
