@@ -1,4 +1,6 @@
+import 'dart:convert';
 
+import 'package:flutter_application_1/data/repository/models/product_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPref {
@@ -50,5 +52,39 @@ class SharedPref {
   static Future<void> clearAll() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
+  }
+
+  Future<void> saveIntList(String key, List<int> intList) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    List<String> stringList = intList.map((e) => e.toString()).toList();
+    await pref.setStringList(key, stringList);
+  }
+
+  Future<List<int>> getIntList(String key) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    List<String>? stringList = pref.getStringList(key);
+    if (stringList == null) return [];
+    return stringList.map((e) => int.tryParse(e) ?? 0).toList();
+  }
+
+  Future<List<ProductModel>> getProductList(String key) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    List<String>? encodedList = pref.getStringList(key);
+    if (encodedList == null) return [];
+    return encodedList
+        .map((item) => ProductModel.fromJson(jsonDecode(item)))
+        .toList();
+  }
+
+  Future<void> saveProductList(String key, List<ProductModel> product) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (product.isEmpty) {
+      await prefs.remove(key);
+      return;
+    }
+    List<String> encodedList = product
+        .map((item) => jsonEncode(item.toJson()))
+        .toList();
+    await prefs.setStringList(key, encodedList);
   }
 }

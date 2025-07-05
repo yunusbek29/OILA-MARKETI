@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_rating_bar/custom_rating_bar.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +8,7 @@ import 'package:flutter_application_1/bloc/detail_bloc/detail_state.dart';
 import 'package:flutter_application_1/config/app_colors.dart';
 import 'package:flutter_application_1/data/local/shared/shared_pref.dart';
 import 'package:flutter_application_1/data/repository/models/product_model.dart';
+import 'package:flutter_application_1/ui/screens/BottomPage/bag_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DetailPage extends StatefulWidget {
@@ -17,10 +20,13 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
+  int son = 1;
+  SharedPref shared = SharedPref();
   @override
   void initState() {
     super.initState();
     getBool();
+    loadBagList();
   }
 
   @override
@@ -164,64 +170,76 @@ class _DetailPageState extends State<DetailPage> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.orange,
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          height: 60,
-
-                          child: ElevatedButton(
-                            onPressed: () {
-                              ScaffoldMessenger.of(context)
-                                ..hideCurrentSnackBar()
-                                ..showSnackBar(
-                                  SnackBar(
-                                    content: Row(
-                                      children: [
-                                        Icon(Icons.info),
-                                        Text("Mahsulot qoshildi"),
-                                      ],
-                                    ),
-                                    showCloseIcon: true,
-                                  ),
-                                );
-
-                              BlocProvider.of<DetailCubit>(
-                                context,
-                              ).addToBag(widget.product);
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.orange,
-                              foregroundColor: AppColors.white,
-                              minimumSize: Size(double.infinity, 60),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                            ),
-                            child: Text(
-                              "ADD TO BAG",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
               ],
             ),
           );
         },
+      ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(left: 30),
+        child: Row(
+          children: [
+            Expanded(
+              flex: 2,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.orange,
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                height: 60,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(
+                        SnackBar(
+                          content: Row(
+                            children: [
+                              Icon(Icons.info),
+                              Text("Mahsulot qoshildi"),
+                            ],
+                          ),
+                          showCloseIcon: true,
+                        ),
+                      );
+                    List<ProductModel> bagList = await shared.getProductList(
+                      'bagList',
+                    );
+                    List<int> bagQuantity = await shared.getIntList(
+                      'bagQuantity',
+                    );
+
+                    int index = bagList.indexWhere(
+                      (item) => item.id == widget.product.id,
+                    );
+
+                    if (index != -1) {
+                      bagQuantity[index] += son;
+                    } else {
+                      bagList.add(widget.product);
+                      bagQuantity.add(son);
+                    }
+
+                    await shared.saveProductList('bagList', bagList);
+                    await shared.saveIntList('bagQuantity', bagQuantity);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.orange,
+                    foregroundColor: Colors.white,
+                    minimumSize: Size(double.infinity, 60),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                  ),
+                  child: Text(
+                    "ADD TO BAG",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -243,5 +261,21 @@ class _DetailPageState extends State<DetailPage> {
     setState(() {
       widget.product.isLiked = !widget.product.isLiked;
     });
+  }
+
+  Future<void> saveBagList(List<ProductModel> bagList) async {
+    List<String> jsonList = bagList
+        .map((product) => jsonEncode(product.toJson()))
+        .toList();
+    await SharedPref.setStringList("bag", jsonList);
+  }
+
+  Future<List<ProductModel>> loadBagList() async {
+    List<String>? jsonList = await SharedPref.getStringList("bag");
+    if (jsonList == null) return [];
+
+    return jsonList
+        .map((jsonString) => ProductModel.fromJson(jsonDecode(jsonString)))
+        .toList();
   }
 }

@@ -19,4 +19,6 @@ class BagCubit extends Cubit<BagState> {
     }
     return total;
   }
+
+  
 }
