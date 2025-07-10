@@ -1,0 +1,116 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_application_1/config/app_colors.dart';
+import 'package:flutter_application_1/data/repository/models/user_model.dart';
+
+class Setting extends StatefulWidget {
+  final UserModel userModel;
+  const Setting({super.key, required this.userModel});
+
+  @override
+  State<Setting> createState() => _SettingState();
+}
+
+class _SettingState extends State<Setting> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+
+    nameController = TextEditingController(text: widget.userModel.username);
+    emailController = TextEditingController(text: widget.userModel.email);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.black,
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: AppColors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: Text('Edit profile', style: TextStyle(color: AppColors.white)),
+        backgroundColor: AppColors.black,
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              SizedBox(height: 20),
+              Container(
+                decoration: BoxDecoration(
+                  boxShadow: [BoxShadow(color: AppColors.grey, blurRadius: 5)],
+                  // border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                  child: TextField(
+                    controller: nameController,
+                    decoration: InputDecoration(border: InputBorder.none),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.grey,
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                    ),
+                  ],
+                  // border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: TextField(
+                    controller: emailController,
+                    decoration: InputDecoration(border: InputBorder.none),
+                  ),
+                ),
+              ),
+              SizedBox(height: 30),
+              Container(
+                height: 60,
+                width: MediaQuery.sizeOf(context).width,
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.white,
+                      spreadRadius: 0.1,
+                      blurRadius: 5,
+                    ),
+                  ],
+                  // color: Colors.white54,
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: InkWell(
+                  splashColor: AppColors.white,
+                  borderRadius: BorderRadius.circular(50),
+                  onTap: () {
+                    String name = nameController.text;
+                    String email = emailController.text;
+                    print('Name: $name, Email: $email');
+                    Navigator.pop(context, "load");
+                  },
+                  child: Center(
+                    child: Text('Save', style: TextStyle(fontSize: 20)),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
