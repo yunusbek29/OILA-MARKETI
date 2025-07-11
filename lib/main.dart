@@ -6,6 +6,7 @@ import 'package:flutter_application_1/bloc/shop_bloc/shop_cubit.dart';
 import 'package:flutter_application_1/bloc/profile_bloc/profile_cubit.dart';
 import 'package:flutter_application_1/ui/screens/splash/splash_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,13 +25,20 @@ class MyApp extends StatelessWidget {
         BlocProvider<DetailCubit>(create: (_) => DetailCubit()),
         BlocProvider<FavoriteCubit>(create: (_) => FavoriteCubit()),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Oila Market',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        ),
-        home: const SplashPage(),
+      child: ScreenUtilInit(
+        designSize: const Size(390, 844),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (_, child) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Oila Market',
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            ),
+            home: const SplashPage(),
+          );
+        },
       ),
     );
   }

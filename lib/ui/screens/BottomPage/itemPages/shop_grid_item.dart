@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/config/app_colors.dart';
 import 'package:flutter_application_1/data/repository/models/product_model.dart';
 import 'package:flutter_application_1/ui/screens/pages/detail_page.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ShopPageGrid extends StatefulWidget {
   final ProductModel product;
@@ -38,7 +39,7 @@ class _ShopPageGridState extends State<ShopPageGrid> {
             Container(
               decoration: BoxDecoration(
                 color: AppColors.white,
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(20.r),
                 border: Border.all(color: AppColors.grey),
               ),
               child: Padding(
@@ -54,8 +55,8 @@ class _ShopPageGridState extends State<ShopPageGrid> {
                       ),
                       child: CachedNetworkImage(
                         imageUrl: widget.product.image,
-                        height: 150,
-                        width: 150,
+                        height: 150.h,
+                        width: 150.w,
                         fit: BoxFit.contain,
                         placeholder: (context, url) => Center(
                           child: CircularProgressIndicator(
@@ -64,7 +65,7 @@ class _ShopPageGridState extends State<ShopPageGrid> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: 10.h),
                     Row(
                       children: [
                         RatingBar.readOnly(
@@ -74,7 +75,7 @@ class _ShopPageGridState extends State<ShopPageGrid> {
                           emptyIcon: Icons.star_border,
                           halfFilledIcon: Icons.star_half,
                           filledColor: AppColors.amber,
-                          size: 20,
+                          size: 20.sp,
                         ),
                         Text(
                           "(${widget.product.ratingCount})",
@@ -82,7 +83,7 @@ class _ShopPageGridState extends State<ShopPageGrid> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 5),
+                    SizedBox(height: 5.h),
                     Text(
                       "${widget.product.title}...",
                       maxLines: 1,
@@ -94,7 +95,7 @@ class _ShopPageGridState extends State<ShopPageGrid> {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: AppColors.green,
-                        fontSize: 16,
+                        fontSize: 16.sp,
                       ),
                     ),
                   ],

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/config/app_colors.dart';
 import 'package:flutter_application_1/data/repository/models/product_model.dart';
 import 'package:flutter_application_1/ui/screens/pages/detail_page.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ShopPageList extends StatefulWidget {
   final ProductModel product;
@@ -22,7 +23,7 @@ class _ShopPageListState extends State<ShopPageList> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      borderRadius: BorderRadius.circular(30),
+      borderRadius: BorderRadius.circular(30.r),
       onTap: () async {
         final back = await Navigator.push(
           context,
@@ -36,21 +37,16 @@ class _ShopPageListState extends State<ShopPageList> {
         child: Container(
           decoration: BoxDecoration(
             color: AppColors.white,
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(12.r),
             border: Border.all(color: AppColors.grey),
           ),
           child: Row(
             children: [
               Padding(
-                padding: EdgeInsetsGeometry.only(
-                  top: 10,
-                  bottom: 10,
-                  right: 10,
-                  left: 10,
-                ),
+                padding: EdgeInsets.all(10),
                 child: CachedNetworkImage(
-                  height: 100,
-                  width: 100,
+                  height: 100.h,
+                  width: 100.w,
                   fit: BoxFit.contain,
                   imageUrl: widget.product.image,
                   placeholder: (context, url) => Center(
@@ -58,7 +54,7 @@ class _ShopPageListState extends State<ShopPageList> {
                   ),
                 ),
               ),
-              SizedBox(width: 10),
+              SizedBox(width: 10.w),
               Expanded(
                 child: Stack(
                   children: [
@@ -69,7 +65,7 @@ class _ShopPageListState extends State<ShopPageList> {
                           "${widget.product.title}...",
                           maxLines: 1,
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -77,7 +73,7 @@ class _ShopPageListState extends State<ShopPageList> {
                           widget.product.category,
                           style: TextStyle(color: AppColors.grey, fontSize: 13),
                         ),
-                        SizedBox(height: 4),
+                        SizedBox(height: 4.h),
                         Row(
                           children: [
                             RatingBar.readOnly(
@@ -87,18 +83,18 @@ class _ShopPageListState extends State<ShopPageList> {
                               emptyIcon: Icons.star_border,
                               halfFilledIcon: Icons.star_half,
                               filledColor: AppColors.amber,
-                              size: 20,
+                              size: 20.sp,
                             ),
                             SizedBox(width: 4),
                             Text("(${widget.product.ratingCount})"),
                           ],
                         ),
-                        SizedBox(height: 4),
+                        SizedBox(height: 4.h),
                         Text(
                           "${widget.product.price}\$",
                           style: TextStyle(
                             color: AppColors.green,
-                            fontSize: 16,
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

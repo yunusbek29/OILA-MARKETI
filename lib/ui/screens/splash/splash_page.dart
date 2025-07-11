@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/config/app_colors.dart';
 import 'package:flutter_application_1/ui/screens/BottomPage/main_page.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 
 class SplashPage extends StatefulWidget {
@@ -37,8 +38,8 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
           children: [
             Lottie.asset(
               'assets/animations/animation.json',
-              height: 300,
-              width: 300,
+              height: 300.h,
+              width: 300.w,
               fit: BoxFit.cover,
               controller: _controller,
               onLoaded: (composition) {
@@ -47,13 +48,13 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                   ..forward();
               },
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 10.h),
             Text(
               "Oila Marketi",
               style: TextStyle(
-                letterSpacing: 5,
+                letterSpacing: 5.sp,
                 fontWeight: FontWeight.bold,
-                fontSize: 20,
+                fontSize: 20.sp,
               ),
             ),
           ],

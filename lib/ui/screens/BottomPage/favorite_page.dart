@@ -6,6 +6,7 @@ import 'package:flutter_application_1/config/app_colors.dart';
 import 'package:flutter_application_1/config/app_texts.dart';
 import 'package:flutter_application_1/ui/screens/pages/detail_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FavoritePage extends StatefulWidget {
   const FavoritePage({super.key});
@@ -33,10 +34,10 @@ class _FavoritePageState extends State<FavoritePage> {
       body: BlocBuilder<FavoriteCubit, FavoriteState>(
         builder: (context, state) {
           return state.favoriteModel.isEmpty
-              ? const Center(
+              ?  Center(
                   child: Text(
                     AppTexts.nofavorite,
-                    style: TextStyle(fontSize: 20, color: AppColors.grey),
+                    style: TextStyle(fontSize: 20.sp, color: AppColors.grey),
                   ),
                 )
               : ListView.builder(

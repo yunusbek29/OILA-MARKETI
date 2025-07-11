@@ -1,10 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:custom_rating_bar/custom_rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/bloc/bag_bloc/bag_cubit.dart';
+import 'package:flutter_application_1/bloc/bag_bloc/bag_state.dart';
 import 'package:flutter_application_1/config/app_colors.dart';
 import 'package:flutter_application_1/config/app_texts.dart';
-import 'package:flutter_application_1/data/repository/models/product_model.dart';
+import 'package:flutter_application_1/ui/screens/pages/detail_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BagPage extends StatefulWidget {
   const BagPage({super.key});
@@ -14,11 +17,11 @@ class BagPage extends StatefulWidget {
 }
 
 class _BagPageState extends State<BagPage> {
-  Map<ProductModel, int> cartItems = {};
-
   @override
   void initState() {
     super.initState();
+    BlocProvider.of<BagCubit>(context).getTotalPrice();
+    BlocProvider.of<BagCubit>(context).isEmptys();
   }
 
   @override
@@ -30,40 +33,53 @@ class _BagPageState extends State<BagPage> {
         title: const Text("Bag"),
         centerTitle: true,
       ),
-      body: cartItems.isEmpty
-          ? const Center(
-              child: Text(
-                AppTexts.noBag,
-                style: TextStyle(fontSize: 20, color: AppColors.grey),
-              ),
-            )
-          : Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: cartItems.length,
-                    itemBuilder: (context, index) {
-                      final product = cartItems.keys.elementAt(index);
-                      final son = cartItems[product]!;
-                      final totalPrice = product.price * son;
-
-                      return Padding(
-                        padding: const EdgeInsets.all(10),
+      body: BlocBuilder<BagCubit, BagState>(
+        builder: (context, state) {
+          return state.bagList.isEmpty
+              ? Center(
+                  child: Text(
+                    AppTexts.noBag,
+                    style: TextStyle(fontSize: 20.sp, color: AppColors.grey),
+                  ),
+                )
+              : ListView.builder(
+                  itemCount: state.bagList.length,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      borderRadius: BorderRadius.circular(30.r),
+                      onTap: () async {
+                        final back = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                DetailPage(product: state.bagList[index]),
+                          ),
+                        );
+                        if (back == "setState") {
+                          setState(() {});
+                        }
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          left: 10,
+                          right: 10,
+                          bottom: 10,
+                        ),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: Colors.grey.shade300),
+                            color: AppColors.white,
+                            borderRadius: BorderRadius.circular(12.r),
+                            border: Border.all(color: AppColors.grey),
                           ),
                           child: Row(
                             children: [
                               Padding(
-                                padding: const EdgeInsets.all(10),
+                                padding: EdgeInsets.all(10),
                                 child: CachedNetworkImage(
+                                  height: 100.h,
+                                  width: 100.w,
                                   fit: BoxFit.contain,
-                                  height: 100,
-                                  width: 100,
-                                  imageUrl: product.image,
+                                  imageUrl: state.bagList[index].image,
                                   placeholder: (context, url) => Center(
                                     child: CircularProgressIndicator(
                                       color: AppColors.orange,
@@ -71,68 +87,100 @@ class _BagPageState extends State<BagPage> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(width: 10),
+                              SizedBox(width: 10.w),
                               Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                child: Stack(
                                   children: [
-                                    Text(
-                                      product.title,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text(
-                                      product.category,
-                                      style: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 13,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      "\$${product.price.toStringAsFixed(2)} each",
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.grey[700],
-                                      ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Row(
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        IconButton(
-                                          onPressed: () async {},
-                                          icon: const Icon(
-                                            Icons.remove_shopping_cart,
+                                        Text(
+                                          "${state.bagList[index].title}...",
+                                          maxLines: 1,
+                                          style: TextStyle(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.bold,
                                           ),
-                                          color: Colors.red,
                                         ),
                                         Text(
-                                          son.toString(),
-                                          style: const TextStyle(fontSize: 16),
-                                        ),
-                                        IconButton(
-                                          onPressed: () async {
-                                            setState(() {
-                                              cartItems[product] = son + 1;
-                                            });
-                                          },
-                                          icon: const Icon(
-                                            Icons.add_shopping_cart_rounded,
+                                          state.bagList[index].category,
+                                          style: TextStyle(
+                                            color: AppColors.grey,
+                                            fontSize: 13,
                                           ),
-                                          color: Colors.green,
+                                        ),
+                                        SizedBox(height: 4.h),
+                                        Row(
+                                          children: [
+                                            RatingBar.readOnly(
+                                              initialRating:
+                                                  state.bagList[index].rate,
+                                              maxRating: 5,
+                                              filledIcon: Icons.star,
+                                              emptyIcon: Icons.star_border,
+                                              halfFilledIcon: Icons.star_half,
+                                              filledColor: AppColors.amber,
+                                              size: 20.sp,
+                                            ),
+                                            SizedBox(width: 4),
+                                            Text(
+                                              "(${state.bagList[index].ratingCount})",
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(height: 4.h),
+                                        Text(
+                                          "${state.bagList[index].price}\$",
+                                          style: TextStyle(
+                                            color: AppColors.green,
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(height: 10),
-                                    Text(
-                                      "Total: \$${totalPrice.toStringAsFixed(2)}",
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
+                                    Positioned(
+                                      bottom: -10,
+                                      right: 0,
+                                      child: Row(
+                                        children: [
+                                          IconButton(
+                                            onLongPress: () => setState(() {
+                                              state.bagList[index].count = 1;
+                                            }),
+                                            onPressed: () {
+                                              if (state.bagList[index].count ==
+                                                  1) {
+                                                setState(() {
+                                                  state.bagList.remove(
+                                                    state.bagList[index],
+                                                  );
+                                                });
+                                              } else {
+                                                setState(() {
+                                                  state.bagList[index].count--;
+                                                });
+                                              }
+                                            },
+                                            icon: Icon(
+                                              Icons.remove_shopping_cart_sharp,
+                                              color: AppColors.red,
+                                            ),
+                                          ),
+                                          Text('${state.bagList[index].count}'),
+                                          IconButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                state.bagList[index].count++;
+                                              });
+                                            },
+                                            icon: Icon(
+                                              Icons.add_shopping_cart,
+                                              color: AppColors.green,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ],
@@ -141,33 +189,12 @@ class _BagPageState extends State<BagPage> {
                             ],
                           ),
                         ),
-                      );
-                    },
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  color: Colors.grey[100],
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Total Price: \$${BlocProvider.of<BagCubit>(context).getTotalPrice().toString()}',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.green,
-                        ),
                       ),
-                    ],
-                  ),
-                ),
-                MaterialButton(
-                  onPressed: () {},
-                  child: Text('Buy', style: TextStyle(color: AppColors.grey)),
-                ),
-              ],
-            ),
+                    );
+                  },
+                );
+        },
+      ),
     );
   }
 }

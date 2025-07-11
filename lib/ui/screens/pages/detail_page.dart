@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_rating_bar/custom_rating_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/bloc/bag_bloc/bag_cubit.dart';
 import 'package:flutter_application_1/bloc/detail_bloc/detail_cubit.dart';
 import 'package:flutter_application_1/bloc/detail_bloc/detail_state.dart';
 import 'package:flutter_application_1/config/app_colors.dart';
@@ -59,8 +60,11 @@ class _DetailPageState extends State<DetailPage> {
                         width: MediaQuery.sizeOf(context).width,
                         imageUrl: widget.product.image,
                         fit: BoxFit.cover,
-                        placeholder: (context, url) =>
-                           Center(child: CircularProgressIndicator(color: AppColors.orange,)),
+                        placeholder: (context, url) => Center(
+                          child: CircularProgressIndicator(
+                            color: AppColors.orange,
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -198,6 +202,7 @@ class _DetailPageState extends State<DetailPage> {
                           showCloseIcon: true,
                         ),
                       );
+                    BlocProvider.of<BagCubit>(context).addToBag(widget.product);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.orange,

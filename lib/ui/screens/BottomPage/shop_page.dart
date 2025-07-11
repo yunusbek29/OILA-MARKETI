@@ -6,6 +6,7 @@ import 'package:flutter_application_1/ui/screens/BottomPage/itemPages/shop_grid_
 import 'package:flutter_application_1/ui/screens/BottomPage/itemPages/shop_list_item.dart';
 import 'package:flutter_application_1/ui/screens/pages/search_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ShopPage extends StatefulWidget {
   const ShopPage({super.key});
@@ -56,13 +57,16 @@ class _ShopPageState extends State<ShopPage> {
                 Container(
                   color: AppColors.white,
                   width: MediaQuery.of(context).size.width,
-                  height: 50,
+                  height: 50.h,
                   child: Row(
                     children: [
                       Icon(Icons.filter_list),
                       Expanded(
                         flex: 1,
-                        child: Text('Popular', style: TextStyle(fontSize: 16)),
+                        child: Text(
+                          'Popular',
+                          style: TextStyle(fontSize: 16.sp),
+                        ),
                       ),
                       Expanded(flex: 4, child: Icon(Icons.swap_vert)),
                       state.isOrder
@@ -90,7 +94,7 @@ class _ShopPageState extends State<ShopPage> {
                       ? Center(
                           child: CircularProgressIndicator(
                             color: AppColors.orange,
-                            strokeAlign: 10,
+                            strokeAlign: 10.r,
                           ),
                         )
                       : Column(
