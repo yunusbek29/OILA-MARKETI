@@ -31,7 +31,10 @@ class _ShopPageState extends State<ShopPage> {
       appBar: AppBar(
         backgroundColor: AppColors.white,
 
-        title: Text('Products', style: TextStyle(color: AppColors.orange)),
+        title: Text(
+          'Products',
+          style: TextStyle(color: AppColors.orange, fontSize: 16.sp),
+        ),
         centerTitle: true,
         actions: [
           IconButton(
@@ -41,7 +44,7 @@ class _ShopPageState extends State<ShopPage> {
                 MaterialPageRoute(builder: (context) => SearchPage()),
               );
             },
-            icon: Icon(Icons.search, color: AppColors.orange),
+            icon: Icon(Icons.search, color: AppColors.orange, size: 16.sp),
           ),
         ],
       ),
@@ -60,7 +63,7 @@ class _ShopPageState extends State<ShopPage> {
                   height: 50.h,
                   child: Row(
                     children: [
-                      Icon(Icons.filter_list),
+                      Icon(Icons.filter_list, size: 16.sp),
                       Expanded(
                         flex: 1,
                         child: Text(
@@ -68,7 +71,10 @@ class _ShopPageState extends State<ShopPage> {
                           style: TextStyle(fontSize: 16.sp),
                         ),
                       ),
-                      Expanded(flex: 4, child: Icon(Icons.swap_vert)),
+                      Expanded(
+                        flex: 4,
+                        child: Icon(Icons.swap_vert, size: 16.sp),
+                      ),
                       state.isOrder
                           ? IconButton(
                               onPressed: () {
@@ -76,7 +82,7 @@ class _ShopPageState extends State<ShopPage> {
                                   context,
                                 ).getIsOrder();
                               },
-                              icon: Icon(Icons.grid_view_outlined),
+                              icon: Icon(Icons.grid_view_outlined, size: 16.sp),
                             )
                           : IconButton(
                               onPressed: () {
@@ -84,7 +90,10 @@ class _ShopPageState extends State<ShopPage> {
                                   context,
                                 ).getIsOrder();
                               },
-                              icon: Icon(Icons.format_list_bulleted),
+                              icon: Icon(
+                                Icons.format_list_bulleted,
+                                size: 16.sp,
+                              ),
                             ),
                     ],
                   ),

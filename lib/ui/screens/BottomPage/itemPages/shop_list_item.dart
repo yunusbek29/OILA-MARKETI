@@ -31,6 +31,13 @@ class _ShopPageListState extends State<ShopPageList> {
             builder: (context) => DetailPage(product: widget.product),
           ),
         );
+        if (back == 'setState') {
+          setState(() {});
+        }else {
+          setState(() {
+            
+          });
+        }
       },
       child: Padding(
         padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),

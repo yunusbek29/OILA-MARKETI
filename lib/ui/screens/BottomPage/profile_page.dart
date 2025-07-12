@@ -7,6 +7,7 @@ import 'package:flutter_application_1/ui/screens/BottomPage/bag_page.dart';
 import 'package:flutter_application_1/ui/screens/BottomPage/favorite_page.dart';
 import 'package:flutter_application_1/ui/screens/settings/setting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -40,32 +41,38 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 90),
+                      SizedBox(height: 90.h),
                       Text(
                         "\t\tMy Profile",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 30,
+                          fontSize: 30.sp,
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 30, top: 10),
+                        padding: EdgeInsets.only(left: 30.sp, top: 10.sp),
                         child: Row(
                           children: [
                             CircleAvatar(
-                              radius: 30,
+                              radius: 30.r,
                               backgroundImage: NetworkImage(
                                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlie4MsQ9pJSSKY7DoEpxn3uBAq-rT7in1sA&s',
                               ),
                             ),
-                            SizedBox(width: 10),
+                            SizedBox(width: 10.w),
                             state.userModel != null
                                 ? Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(state.userModel?.username ?? ""),
-                                      Text(state.userModel?.email ?? ""),
+                                      Text(
+                                        state.userModel?.username ?? "",
+                                        style: TextStyle(fontSize: 16.sp),
+                                      ),
+                                      Text(
+                                        state.userModel?.email ?? "",
+                                        style: TextStyle(fontSize: 16.sp),
+                                      ),
                                     ],
                                   )
                                 : SizedBox(),
@@ -87,18 +94,18 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: Text(
                                 'My bag',
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
-                            Icon(Icons.keyboard_arrow_down),
+                            Icon(Icons.keyboard_arrow_down, size: 17.sp),
                           ],
                         ),
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                       MaterialButton(
-                        height: 50,
+                        height: 50.h,
                         onPressed: () {
                           Navigator.push(
                             context,
@@ -113,18 +120,18 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: Text(
                                 'Wishlist',
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
-                            Icon(Icons.keyboard_arrow_down),
+                            Icon(Icons.keyboard_arrow_down, size: 17.sp),
                           ],
                         ),
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                       MaterialButton(
-                        height: 50,
+                        height: 50.h,
                         onPressed: () {
                           BlocProvider.of<ProfileCubit>(
                             context,
@@ -136,7 +143,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: Text(
                                 'Shipping addresses',
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -145,6 +152,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               state.showAddress
                                   ? Icons.keyboard_arrow_up
                                   : Icons.keyboard_arrow_down,
+                              size: 17.sp,
                             ),
                           ],
                         ),
@@ -152,45 +160,45 @@ class _ProfilePageState extends State<ProfilePage> {
                       Visibility(
                         visible: state.showAddress,
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(8.sp),
                           child: Container(
                             width: MediaQuery.sizeOf(context).width,
                             decoration: BoxDecoration(
                               border: Border.all(
                                 color: AppColors.grey,
-                                width: 1,
+                                width: 1.sp,
                               ),
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(10.r),
                               color: AppColors.grey,
                             ),
                             child: Padding(
-                              padding: EdgeInsets.all(10),
+                              padding: EdgeInsets.all(10.sp),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     "Name: ${state.userModel!.username}",
-                                    style: TextStyle(fontSize: 16),
+                                    style: TextStyle(fontSize: 16.sp),
                                   ),
                                   SizedBox(height: 5),
                                   Text(
                                     "Email: ${state.userModel!.email}",
-                                    style: TextStyle(fontSize: 16),
+                                    style: TextStyle(fontSize: 16.sp),
                                   ),
                                   SizedBox(height: 5),
                                   Text(
                                     "Password: ${state.userModel!.password}",
-                                    style: TextStyle(fontSize: 16),
+                                    style: TextStyle(fontSize: 16.sp),
                                   ),
                                   SizedBox(height: 5),
                                   Text(
                                     "Address: ${state.userModel!.address.city}",
-                                    style: TextStyle(fontSize: 16),
+                                    style: TextStyle(fontSize: 16.sp),
                                   ),
                                   SizedBox(height: 5),
                                   Text(
                                     "Phone: ${state.userModel!.phone}",
-                                    style: TextStyle(fontSize: 16),
+                                    style: TextStyle(fontSize: 16.sp),
                                   ),
                                 ],
                               ),
@@ -198,9 +206,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                       MaterialButton(
-                        height: 50,
+                        height: 50.h,
                         onPressed: () {
                           BlocProvider.of<ProfileCubit>(context).getShowTerms();
                         },
@@ -210,7 +218,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: Text(
                                 'Terms of Use',
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -219,6 +227,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               state.showTerms
                                   ? Icons.keyboard_arrow_up
                                   : Icons.keyboard_arrow_down,
+                              size: 17.sp,
                             ),
                           ],
                         ),
@@ -226,26 +235,26 @@ class _ProfilePageState extends State<ProfilePage> {
                       Visibility(
                         visible: state.showTerms,
                         child: Padding(
-                          padding: const EdgeInsets.all(8),
+                          padding: EdgeInsets.all(8.sp),
                           child: Container(
                             width: MediaQuery.sizeOf(context).width,
-                            padding: EdgeInsets.all(12),
+                            padding: EdgeInsets.all(12.sp),
                             decoration: BoxDecoration(
                               color: AppColors.grey,
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8.r),
                               border: Border.all(color: AppColors.grey),
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(AppTexts.text_1),
-                                SizedBox(height: 5),
+                                SizedBox(height: 5.sp),
                                 Text(AppTexts.text_2),
-                                SizedBox(height: 5),
+                                SizedBox(height: 5.sp),
                                 Text(AppTexts.text_3),
-                                SizedBox(height: 5),
+                                SizedBox(height: 5.sp),
                                 Text(AppTexts.text_4),
-                                SizedBox(height: 5),
+                                SizedBox(height: 5.sp),
                                 Text(AppTexts.text_5),
                               ],
                             ),
@@ -253,9 +262,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
 
-                      SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                       MaterialButton(
-                        height: 50,
+                        height: 50.h,
                         onPressed: () {
                           if (state.userModel != null) {
                             Navigator.push(
@@ -274,12 +283,12 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: Text(
                                 'Setings',
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
-                            Icon(Icons.keyboard_arrow_down),
+                            Icon(Icons.keyboard_arrow_down, size: 17.sp),
                           ],
                         ),
                       ),

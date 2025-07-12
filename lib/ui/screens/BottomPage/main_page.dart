@@ -4,6 +4,7 @@ import 'package:flutter_application_1/ui/screens/BottomPage/bag_page.dart';
 import 'package:flutter_application_1/ui/screens/BottomPage/favorite_page.dart';
 import 'package:flutter_application_1/ui/screens/BottomPage/profile_page.dart';
 import 'package:flutter_application_1/ui/screens/BottomPage/shop_page.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 class MainPage extends StatefulWidget {
@@ -33,12 +34,15 @@ class _MainPageState extends State<MainPage> {
             currentIndex = index;
           });
         },
-        padding: EdgeInsetsGeometry.all(17),
+        padding: EdgeInsets.all(17.sp),
         tabs: [
           GButton(
             icon: Icons.shopping_cart,
             text: "Shop",
-            gap: 5,
+            iconSize: 24.sp,
+            textStyle: TextStyle(fontSize: 16.sp, color: AppColors.orange),
+
+            gap: 5.sp,
             onPressed: () {
               currentIndex == 1;
             },
@@ -49,7 +53,10 @@ class _MainPageState extends State<MainPage> {
           GButton(
             icon: Icons.shopping_bag,
             text: "Bag",
-            gap: 5,
+            gap: 5.sp,
+            iconSize: 24.sp,
+            textStyle: TextStyle(fontSize: 16.sp, color: AppColors.orange),
+
             onPressed: () {
               currentIndex == 2;
             },
@@ -60,7 +67,10 @@ class _MainPageState extends State<MainPage> {
           GButton(
             icon: Icons.favorite,
             text: "Favorite",
-            gap: 5,
+            gap: 5.sp,
+            iconSize: 24.sp,
+            textStyle: TextStyle(fontSize: 16.sp, color: AppColors.orange),
+
             iconColor: AppColors.grey,
             onPressed: () {
               currentIndex == 3;
@@ -71,7 +81,9 @@ class _MainPageState extends State<MainPage> {
           GButton(
             icon: Icons.person,
             text: "profile",
-            gap: 5,
+            gap: 5.sp,
+            iconSize: 24.sp,
+            textStyle: TextStyle(fontSize: 16.sp, color: AppColors.orange),
             onPressed: () {
               currentIndex == 4;
             },
@@ -81,7 +93,7 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
       ),
-      drawerEdgeDragWidth: 10,
+      drawerEdgeDragWidth: 100.sp,
     );
   }
 }

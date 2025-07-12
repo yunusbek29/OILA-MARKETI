@@ -23,7 +23,7 @@ class _ShopPageGridState extends State<ShopPageGrid> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      borderRadius: BorderRadius.circular(30),
+      borderRadius: BorderRadius.circular(30.r),
       onTap: () async {
         final back = await Navigator.push(
           context,
@@ -31,9 +31,14 @@ class _ShopPageGridState extends State<ShopPageGrid> {
             builder: (context) => DetailPage(product: widget.product),
           ),
         );
+        if (back == 'setState') {
+          setState(() {});
+        } else {
+          setState(() {});
+        }
       },
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(8.sp),
         child: Stack(
           children: [
             Container(
@@ -43,24 +48,26 @@ class _ShopPageGridState extends State<ShopPageGrid> {
                 border: Border.all(color: AppColors.grey),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(10),
+                padding: EdgeInsets.all(10.sp),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 10,
-                        left: 2,
-                        right: 4,
-                      ),
-                      child: CachedNetworkImage(
-                        imageUrl: widget.product.image,
-                        height: 150.h,
-                        width: 150.w,
-                        fit: BoxFit.contain,
-                        placeholder: (context, url) => Center(
-                          child: CircularProgressIndicator(
-                            color: AppColors.orange,
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          top: 10.sp,
+                          left: 2.sp,
+                          right: 4.sp,
+                        ),
+                        child: CachedNetworkImage(
+                          imageUrl: widget.product.image,
+                          height: 150.h,
+                          width: 150.w,
+                          fit: BoxFit.contain,
+                          placeholder: (context, url) => Center(
+                            child: CircularProgressIndicator(
+                              color: AppColors.orange,
+                            ),
                           ),
                         ),
                       ),
@@ -79,7 +86,7 @@ class _ShopPageGridState extends State<ShopPageGrid> {
                         ),
                         Text(
                           "(${widget.product.ratingCount})",
-                          style: const TextStyle(fontSize: 12),
+                          style: TextStyle(fontSize: 12.sp),
                         ),
                       ],
                     ),
@@ -87,9 +94,15 @@ class _ShopPageGridState extends State<ShopPageGrid> {
                     Text(
                       "${widget.product.title}...",
                       maxLines: 1,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16.sp,
+                      ),
                     ),
-                    Text(widget.product.category),
+                    Text(
+                      widget.product.category,
+                      style: TextStyle(fontSize: 15.sp, color: Colors.grey),
+                    ),
                     Text(
                       "${widget.product.price.toString()}\$",
                       style: TextStyle(

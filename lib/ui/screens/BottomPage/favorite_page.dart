@@ -27,14 +27,14 @@ class _FavoritePageState extends State<FavoritePage> {
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: AppBar(
-        title: const Text("Favorites"),
+        title: Text("Favorites", style: TextStyle(fontSize: 17.sp)),
         centerTitle: true,
         backgroundColor: AppColors.white,
       ),
       body: BlocBuilder<FavoriteCubit, FavoriteState>(
         builder: (context, state) {
           return state.favoriteModel.isEmpty
-              ?  Center(
+              ? Center(
                   child: Text(
                     AppTexts.nofavorite,
                     style: TextStyle(fontSize: 20.sp, color: AppColors.grey),
@@ -52,25 +52,26 @@ class _FavoritePageState extends State<FavoritePage> {
                             builder: (context) => DetailPage(product: product),
                           ),
                         );
+                        if (back == 'setState') {
+                          setState(() {});
+                        } else {
+                          setState(() {});
+                        }
                       },
                       child: Padding(
-                        padding: const EdgeInsets.only(
-                          left: 10,
-                          right: 10,
-                          top: 10,
+                        padding: EdgeInsets.only(
+                          left: 10.sp,
+                          right: 10.sp,
+                          top: 10.sp,
                         ),
                         child: Container(
-                          padding: const EdgeInsets.all(10),
+                          padding: EdgeInsets.all(10.sp),
                           decoration: BoxDecoration(
                             color: AppColors.white,
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.circular(12.sp),
                             border: Border.all(color: AppColors.grey),
                             boxShadow: [
-                              BoxShadow(
-                                color: AppColors.grey,
-                                blurRadius: 4,
-                                offset: const Offset(2, 2),
-                              ),
+                              BoxShadow(color: AppColors.grey, blurRadius: 4.r),
                             ],
                           ),
                           child: Row(
@@ -78,15 +79,17 @@ class _FavoritePageState extends State<FavoritePage> {
                               Expanded(
                                 flex: 1,
                                 child: CachedNetworkImage(
-                                  height: 50,
-                                  width: 50,
+                                  height: 50.w,
+                                  width: 50.h,
                                   imageUrl: product.image,
-                                  placeholder: (context, url) =>
-                           Center(child: CircularProgressIndicator(color: AppColors.orange,)),
-                      
+                                  placeholder: (context, url) => Center(
+                                    child: CircularProgressIndicator(
+                                      color: AppColors.orange,
+                                    ),
+                                  ),
                                 ),
                               ),
-                              const SizedBox(width: 10),
+                              SizedBox(width: 10.w),
                               Expanded(
                                 flex: 3,
                                 child: Column(
@@ -96,26 +99,27 @@ class _FavoritePageState extends State<FavoritePage> {
                                       product.title,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 16,
+                                        fontSize: 16.sp,
                                       ),
                                     ),
-                                    const SizedBox(height: 4),
+                                    SizedBox(height: 4.sp),
                                     Text(
                                       "\$${product.price}",
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         color: AppColors.green,
-                                        fontSize: 14,
+                                        fontSize: 14.sp,
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
                               IconButton(
-                                icon: const Icon(
+                                icon: Icon(
                                   Icons.delete,
                                   color: AppColors.red,
+                                  size: 17.sp,
                                 ),
                                 onPressed: () {},
                               ),

@@ -30,7 +30,7 @@ class _BagPageState extends State<BagPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Text("Bag"),
+        title: Text("Bag", style: TextStyle(fontSize: 17.sp)),
         centerTitle: true,
       ),
       body: BlocBuilder<BagCubit, BagState>(

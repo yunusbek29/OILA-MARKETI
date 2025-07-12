@@ -7,6 +7,7 @@ import 'package:flutter_application_1/bloc/detail_bloc/detail_state.dart';
 import 'package:flutter_application_1/config/app_colors.dart';
 import 'package:flutter_application_1/data/repository/models/product_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DetailPage extends StatefulWidget {
   final ProductModel product;
@@ -69,7 +70,7 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                   ],
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: 30.h),
                 Padding(
                   padding: const EdgeInsets.only(left: 10, right: 10),
                   child: Column(
@@ -79,7 +80,7 @@ class _DetailPageState extends State<DetailPage> {
                         widget.product.title,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 20,
+                          fontSize: 20.sp,
                         ),
                       ),
                       Row(
@@ -87,7 +88,10 @@ class _DetailPageState extends State<DetailPage> {
                           Expanded(
                             child: Text(
                               widget.product.category,
-                              style: TextStyle(color: Colors.grey),
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 17.sp,
+                              ),
                             ),
                           ),
                           Text(
@@ -95,7 +99,7 @@ class _DetailPageState extends State<DetailPage> {
                             style: TextStyle(
                               color: AppColors.green,
                               fontWeight: FontWeight.bold,
-                              fontSize: 20,
+                              fontSize: 20.sp,
                             ),
                           ),
                         ],
@@ -109,20 +113,23 @@ class _DetailPageState extends State<DetailPage> {
                             emptyIcon: Icons.star_border,
                             halfFilledIcon: Icons.star_half,
                             filledColor: AppColors.amber,
-                            size: 20,
+                            size: 20.sp,
                           ),
                           Text(
                             "(${widget.product.ratingCount.toString()})",
-                            style: TextStyle(color: AppColors.grey),
+                            style: TextStyle(
+                              color: AppColors.grey,
+                              fontSize: 16.sp,
+                            ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 20.h),
                       Text(
                         widget.product.description,
-                        style: TextStyle(fontSize: 16),
+                        style: TextStyle(fontSize: 16.sp),
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 20.h),
                     ],
                   ),
                 ),
@@ -135,7 +142,7 @@ class _DetailPageState extends State<DetailPage> {
                           "Shipping info",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                            fontSize: 20.sp,
                           ),
                         ),
                       ),
@@ -146,7 +153,7 @@ class _DetailPageState extends State<DetailPage> {
                     ],
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 10.h),
                 MaterialButton(
                   onPressed: () {},
                   child: Row(
@@ -156,7 +163,7 @@ class _DetailPageState extends State<DetailPage> {
                           "Support",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                            fontSize: 20.sp,
                           ),
                         ),
                       ),
@@ -181,9 +188,9 @@ class _DetailPageState extends State<DetailPage> {
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.orange,
-                  borderRadius: BorderRadius.circular(50),
+                  borderRadius: BorderRadius.circular(50.r),
                 ),
-                height: 60,
+                height: 60.h,
                 child: ElevatedButton(
                   onPressed: () async {
                     BlocProvider.of<DetailCubit>(
@@ -205,16 +212,19 @@ class _DetailPageState extends State<DetailPage> {
                     BlocProvider.of<BagCubit>(context).addToBag(widget.product);
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.orange,
-                    foregroundColor: Colors.white,
-                    minimumSize: Size(double.infinity, 60),
+                    backgroundColor: AppColors.orange,
+                    foregroundColor: AppColors.white,
+                    // minimumSize: Size(double.infinity, 60),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50),
+                      borderRadius: BorderRadius.circular(50.r),
                     ),
                   ),
                   child: Text(
                     "ADD TO BAG",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
