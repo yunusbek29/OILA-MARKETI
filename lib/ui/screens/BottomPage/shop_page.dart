@@ -33,7 +33,7 @@ class _ShopPageState extends State<ShopPage> {
 
         title: Text(
           'Products',
-          style: TextStyle(color: AppColors.orange, fontSize: 16.sp),
+          style: TextStyle(color: AppColors.orange, fontSize: 23.sp),
         ),
         centerTitle: true,
         actions: [
@@ -44,7 +44,7 @@ class _ShopPageState extends State<ShopPage> {
                 MaterialPageRoute(builder: (context) => SearchPage()),
               );
             },
-            icon: Icon(Icons.search, color: AppColors.orange, size: 16.sp),
+            icon: Icon(Icons.search, color: AppColors.orange, size: 23.sp),
           ),
         ],
       ),
@@ -63,38 +63,30 @@ class _ShopPageState extends State<ShopPage> {
                   height: 50.h,
                   child: Row(
                     children: [
-                      Icon(Icons.filter_list, size: 16.sp),
+                      Icon(Icons.filter_list, size: 17.sp),
                       Expanded(
                         flex: 1,
                         child: Text(
                           'Popular',
-                          style: TextStyle(fontSize: 16.sp),
+                          style: TextStyle(fontSize: 17.sp),
                         ),
                       ),
                       Expanded(
                         flex: 4,
-                        child: Icon(Icons.swap_vert, size: 16.sp),
+                        child: Icon(Icons.swap_vert, size: 20.sp),
                       ),
-                      state.isOrder
-                          ? IconButton(
-                              onPressed: () {
-                                BlocProvider.of<ShopCubit>(
-                                  context,
-                                ).getIsOrder();
-                              },
-                              icon: Icon(Icons.grid_view_outlined, size: 16.sp),
-                            )
-                          : IconButton(
-                              onPressed: () {
-                                BlocProvider.of<ShopCubit>(
-                                  context,
-                                ).getIsOrder();
-                              },
-                              icon: Icon(
-                                Icons.format_list_bulleted,
-                                size: 16.sp,
-                              ),
-                            ),
+
+                      IconButton(
+                        onPressed: () {
+                          BlocProvider.of<ShopCubit>(context).getIsOrder();
+                        },
+                        icon: Icon(
+                          state.isOrder
+                              ? Icons.grid_view_outlined
+                              : Icons.format_list_bulleted,
+                          size: 20.sp,
+                        ),
+                      ),
                     ],
                   ),
                 ),

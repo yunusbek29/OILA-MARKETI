@@ -33,10 +33,8 @@ class _ShopPageListState extends State<ShopPageList> {
         );
         if (back == 'setState') {
           setState(() {});
-        }else {
-          setState(() {
-            
-          });
+        } else {
+          setState(() {});
         }
       },
       child: Padding(
@@ -78,7 +76,10 @@ class _ShopPageListState extends State<ShopPageList> {
                         ),
                         Text(
                           widget.product.category,
-                          style: TextStyle(color: AppColors.grey, fontSize: 13),
+                          style: TextStyle(
+                            color: AppColors.grey,
+                            fontSize: 13.sp,
+                          ),
                         ),
                         SizedBox(height: 4.h),
                         Row(

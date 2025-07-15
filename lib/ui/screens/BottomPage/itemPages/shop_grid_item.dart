@@ -101,7 +101,7 @@ class _ShopPageGridState extends State<ShopPageGrid> {
                     ),
                     Text(
                       widget.product.category,
-                      style: TextStyle(fontSize: 15.sp, color: Colors.grey),
+                      style: TextStyle(fontSize: 13.sp, color: Colors.grey),
                     ),
                     Text(
                       "${widget.product.price.toString()}\$",
