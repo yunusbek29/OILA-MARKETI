@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/config/app_colors.dart';
 import 'package:flutter_application_1/data/repository/models/user_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Setting extends StatefulWidget {
   final UserModel userModel;
@@ -32,46 +33,49 @@ class _SettingState extends State<Setting> {
             Navigator.pop(context);
           },
         ),
-        title: Text('Edit profile', style: TextStyle(color: AppColors.white)),
+        title: Text(
+          'Edit profile',
+          style: TextStyle(color: AppColors.white, fontSize: 20.sp),
+        ),
         backgroundColor: AppColors.black,
         centerTitle: true,
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: EdgeInsets.all(20.sp),
           child: Column(
             children: [
-              SizedBox(height: 20),
+              SizedBox(height: 20.h),
               Container(
                 decoration: BoxDecoration(
-                  boxShadow: [BoxShadow(color: AppColors.grey, blurRadius: 5)],
-                  // border: Border.all(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(50),
+                  boxShadow: [
+                    BoxShadow(color: AppColors.grey, blurRadius: 5.r),
+                  ],
+                  borderRadius: BorderRadius.circular(50.r),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                  padding: EdgeInsets.only(left: 20.sp, right: 20.sp),
                   child: TextField(
                     controller: nameController,
                     decoration: InputDecoration(border: InputBorder.none),
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 20.h),
               Container(
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
                       color: AppColors.grey,
-                      spreadRadius: 1,
-                      blurRadius: 5,
+                      spreadRadius: 1.r,
+                      blurRadius: 5.r,
                     ),
                   ],
-                  // border: Border.all(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(50),
+                  borderRadius: BorderRadius.circular(50.r),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  padding: EdgeInsets.only(left: 20.sp, right: 20.sp),
                   child: TextField(
                     controller: emailController,
                     decoration: InputDecoration(border: InputBorder.none),
@@ -80,22 +84,21 @@ class _SettingState extends State<Setting> {
               ),
               SizedBox(height: 30),
               Container(
-                height: 60,
+                height: 60.h,
                 width: MediaQuery.sizeOf(context).width,
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
                       color: AppColors.white,
-                      spreadRadius: 0.1,
-                      blurRadius: 5,
+                      spreadRadius: 0.1.r,
+                      blurRadius: 5.r,
                     ),
                   ],
-                  // color: Colors.white54,
-                  borderRadius: BorderRadius.circular(50),
+                  borderRadius: BorderRadius.circular(50.r),
                 ),
                 child: InkWell(
                   splashColor: AppColors.white,
-                  borderRadius: BorderRadius.circular(50),
+                  borderRadius: BorderRadius.circular(50.r),
                   onTap: () {
                     String name = nameController.text;
                     String email = emailController.text;
@@ -103,7 +106,7 @@ class _SettingState extends State<Setting> {
                     Navigator.pop(context, "load");
                   },
                   child: Center(
-                    child: Text('Save', style: TextStyle(fontSize: 20)),
+                    child: Text('Save', style: TextStyle(fontSize: 20.sp)),
                   ),
                 ),
               ),

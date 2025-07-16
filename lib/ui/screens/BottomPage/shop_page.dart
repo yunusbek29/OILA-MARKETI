@@ -59,7 +59,7 @@ class _ShopPageState extends State<ShopPage> {
               children: [
                 Container(
                   color: AppColors.white,
-                  width: MediaQuery.of(context).size.width,
+                  width: MediaQuery.sizeOf(context).width,
                   height: 50.h,
                   child: Row(
                     children: [
