@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_rating_bar/custom_rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/config/app_colors.dart';
-import 'package:flutter_application_1/data/repository/models/product_model.dart';
+import 'package:flutter_application_1/data/local/entry/product_model.dart';
 import 'package:flutter_application_1/ui/screens/pages/detail_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

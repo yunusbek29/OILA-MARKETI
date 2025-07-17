@@ -1,13 +1,16 @@
 import 'dart:convert';
 
+import 'package:floor/floor.dart';
+
 List<ProductModel> userFromJson(String str) => List<ProductModel>.from(
   json.decode(str).map((x) => ProductModel.fromJson(x)),
 );
 
 String userToJson(List<ProductModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
-
+@Entity(tableName: 'products')
 class ProductModel {
+  @PrimaryKey(autoGenerate: true)
   final int id;
   final String title;
   final double price;

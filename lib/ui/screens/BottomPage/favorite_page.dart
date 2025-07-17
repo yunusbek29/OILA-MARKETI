@@ -19,7 +19,6 @@ class _FavoritePageState extends State<FavoritePage> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<FavoriteCubit>(context).getLoadList();
   }
 
   @override

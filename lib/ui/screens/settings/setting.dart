@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/config/app_colors.dart';
-import 'package:flutter_application_1/data/repository/models/user_model.dart';
+import 'package:flutter_application_1/data/local/entry/user_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Setting extends StatefulWidget {

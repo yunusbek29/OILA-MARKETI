@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_application_1/data/repository/models/product_model.dart';
+import 'package:flutter_application_1/data/local/entry/product_model.dart';
 
 class ShopState extends Equatable {
   final bool isOrder;

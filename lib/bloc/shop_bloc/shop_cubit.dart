@@ -1,6 +1,6 @@
 import 'package:flutter_application_1/bloc/shop_bloc/shop_state.dart';
 import 'package:flutter_application_1/data/remote/fakestoreapi/product.dart';
-import 'package:flutter_application_1/data/repository/models/product_model.dart';
+import 'package:flutter_application_1/data/local/entry/product_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ShopCubit extends Cubit<ShopState> {

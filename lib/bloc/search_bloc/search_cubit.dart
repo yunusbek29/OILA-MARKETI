@@ -1,7 +1,7 @@
 
 import 'package:flutter_application_1/bloc/search_bloc/search_state.dart';
 import 'package:flutter_application_1/data/remote/fakestoreapi/product.dart';
-import 'package:flutter_application_1/data/repository/models/product_model.dart';
+import 'package:flutter_application_1/data/local/entry/product_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SearchCubit extends Cubit<SearchState> {

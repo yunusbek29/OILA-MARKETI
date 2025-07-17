@@ -1,5 +1,5 @@
 import 'package:flutter_application_1/bloc/bag_bloc/bag_state.dart';
-import 'package:flutter_application_1/data/repository/models/product_model.dart';
+import 'package:flutter_application_1/data/local/entry/product_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BagCubit extends Cubit<BagState> {

@@ -5,7 +5,7 @@ import 'package:flutter_application_1/bloc/bag_bloc/bag_cubit.dart';
 import 'package:flutter_application_1/bloc/detail_bloc/detail_cubit.dart';
 import 'package:flutter_application_1/bloc/detail_bloc/detail_state.dart';
 import 'package:flutter_application_1/config/app_colors.dart';
-import 'package:flutter_application_1/data/repository/models/product_model.dart';
+import 'package:flutter_application_1/data/local/entry/product_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -18,7 +18,6 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
-  int son = 1;
   @override
   void initState() {
     super.initState();

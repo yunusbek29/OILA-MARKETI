@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter_application_1/bloc/profile_bloc/profile_state.dart';
 import 'package:flutter_application_1/data/remote/fakestoreapi/product.dart';
-import 'package:flutter_application_1/data/repository/models/user_model.dart';
+import 'package:flutter_application_1/data/local/entry/user_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
