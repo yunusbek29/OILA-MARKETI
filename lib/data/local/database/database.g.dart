@@ -72,6 +72,8 @@ class _$AppDatabase extends AppDatabase {
     changeListener = listener ?? StreamController<String>.broadcast();
   }
 
+  ProductDao? _productDaoInstance;
+
   Future<sqflite.Database> open(
     String path,
     List<Migration> migrations, [
@@ -100,5 +102,109 @@ class _$AppDatabase extends AppDatabase {
       },
     );
     return sqfliteDatabaseFactory.openDatabase(path, options: databaseOptions);
+  }
+
+  @override
+  ProductDao get productDao {
+    return _productDaoInstance ??= _$ProductDao(database, changeListener);
+  }
+}
+
+class _$ProductDao extends ProductDao {
+  _$ProductDao(
+    this.database,
+    this.changeListener,
+  )   : _queryAdapter = QueryAdapter(database),
+        _productModelInsertionAdapter = InsertionAdapter(
+            database,
+            'products',
+            (ProductModel item) => <String, Object?>{
+                  'id': item.id,
+                  'title': item.title,
+                  'price': item.price,
+                  'description': item.description,
+                  'category': item.category,
+                  'image': item.image,
+                  'rate': item.rate,
+                  'ratingCount': item.ratingCount,
+                  'count': item.count,
+                  'isLiked': item.isLiked ? 1 : 0
+                }),
+        _productModelDeletionAdapter = DeletionAdapter(
+            database,
+            'products',
+            ['id'],
+            (ProductModel item) => <String, Object?>{
+                  'id': item.id,
+                  'title': item.title,
+                  'price': item.price,
+                  'description': item.description,
+                  'category': item.category,
+                  'image': item.image,
+                  'rate': item.rate,
+                  'ratingCount': item.ratingCount,
+                  'count': item.count,
+                  'isLiked': item.isLiked ? 1 : 0
+                });
+
+  final sqflite.DatabaseExecutor database;
+
+  final StreamController<String> changeListener;
+
+  final QueryAdapter _queryAdapter;
+
+  final InsertionAdapter<ProductModel> _productModelInsertionAdapter;
+
+  final DeletionAdapter<ProductModel> _productModelDeletionAdapter;
+
+  @override
+  Future<List<ProductModel>> getAllProducts() async {
+    return _queryAdapter.queryList('SELECT * FROM products',
+        mapper: (Map<String, Object?> row) => ProductModel(
+            id: row['id'] as int,
+            title: row['title'] as String,
+            price: row['price'] as double,
+            description: row['description'] as String,
+            category: row['category'] as String,
+            image: row['image'] as String,
+            rate: row['rate'] as double,
+            ratingCount: row['ratingCount'] as int,
+            count: row['count'] as int,
+            isLiked: (row['isLiked'] as int) != 0));
+  }
+
+  @override
+  Future<ProductModel?> getProductById(int id) async {
+    return _queryAdapter.query('SELECT * FROM products WHERE productId = ?1',
+        mapper: (Map<String, Object?> row) => ProductModel(
+            id: row['id'] as int,
+            title: row['title'] as String,
+            price: row['price'] as double,
+            description: row['description'] as String,
+            category: row['category'] as String,
+            image: row['image'] as String,
+            rate: row['rate'] as double,
+            ratingCount: row['ratingCount'] as int,
+            count: row['count'] as int,
+            isLiked: (row['isLiked'] as int) != 0),
+        arguments: [id]);
+  }
+
+  @override
+  Future<void> deleteProductById(int id) async {
+    await _queryAdapter.queryNoReturn(
+        'DELETE FROM products WHERE productId = ?1',
+        arguments: [id]);
+  }
+
+  @override
+  Future<void> saveProduct(ProductModel product) async {
+    await _productModelInsertionAdapter.insert(
+        product, OnConflictStrategy.replace);
+  }
+
+  @override
+  Future<void> removeProduct(ProductModel product) async {
+    await _productModelDeletionAdapter.delete(product);
   }
 }

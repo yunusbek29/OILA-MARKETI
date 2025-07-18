@@ -5,6 +5,7 @@ import 'package:flutter_application_1/bloc/bag_bloc/bag_cubit.dart';
 import 'package:flutter_application_1/bloc/detail_bloc/detail_cubit.dart';
 import 'package:flutter_application_1/bloc/detail_bloc/detail_state.dart';
 import 'package:flutter_application_1/config/app_colors.dart';
+import 'package:flutter_application_1/data/local/database_servise.dart';
 import 'package:flutter_application_1/data/local/entry/product_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -38,7 +39,11 @@ class _DetailPageState extends State<DetailPage> {
         ),
         actions: [
           IconButton(
-            onPressed: () async {},
+            onPressed: () async {
+              await DatabaseServise.database?.productDao.saveProduct(
+                widget.product,
+              );
+            },
             icon: Icon(
               widget.product.isLiked ? Icons.favorite : Icons.favorite_border,
               color: AppColors.red,
@@ -208,12 +213,14 @@ class _DetailPageState extends State<DetailPage> {
                           showCloseIcon: true,
                         ),
                       );
-                    BlocProvider.of<BagCubit>(context).addToBag(widget.product);
+                    await DatabaseServise.database?.productDao.saveProduct(
+                      widget.product,
+                    );
+                    BlocProvider.of<BagCubit>(context).count();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.orange,
                     foregroundColor: AppColors.white,
-                    // minimumSize: Size(double.infinity, 60),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50.r),
                     ),

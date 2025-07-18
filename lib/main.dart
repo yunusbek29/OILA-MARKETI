@@ -5,11 +5,14 @@ import 'package:flutter_application_1/bloc/favorite_bloc/favorite_cubit.dart';
 import 'package:flutter_application_1/bloc/search_bloc/search_cubit.dart';
 import 'package:flutter_application_1/bloc/shop_bloc/shop_cubit.dart';
 import 'package:flutter_application_1/bloc/profile_bloc/profile_cubit.dart';
+import 'package:flutter_application_1/data/local/database_servise.dart';
 import 'package:flutter_application_1/ui/screens/splash/splash_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await DatabaseServise.initialize();
   runApp(const MyApp());
 }
 
