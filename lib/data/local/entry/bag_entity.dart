@@ -2,14 +2,14 @@ import 'dart:convert';
 
 import 'package:floor/floor.dart';
 
-List<ProductModel> userFromJson(String str) => List<ProductModel>.from(
-  json.decode(str).map((x) => ProductModel.fromJson(x)),
+List<BagEntity> userFromJson(String str) => List<BagEntity>.from(
+  json.decode(str).map((x) => BagEntity.fromJson(x)),
 );
 
-String userToJson(List<ProductModel> data) =>
+String userToJson(List<BagEntity> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
-
-class ProductModel {
+@Entity(tableName: 'products')
+class BagEntity {
   @PrimaryKey(autoGenerate: true)
   final int id;
   final String title;
@@ -22,7 +22,7 @@ class ProductModel {
   int count;
   bool isLiked;
 
-  ProductModel({
+  BagEntity({
     required this.id,
     required this.title,
     required this.price,
@@ -35,8 +35,8 @@ class ProductModel {
     this.isLiked = false,
   });
 
-  factory ProductModel.fromJson(Map<String, dynamic> json) {
-    return ProductModel(
+  factory BagEntity.fromJson(Map<String, dynamic> json) {
+    return BagEntity(
       id: json['id'],
       title: json['title'],
       price: (json['price'] as num).toDouble(),
@@ -62,9 +62,10 @@ class ProductModel {
 
   @override
   bool operator ==(Object other) {
-    return other is ProductModel && other.id == id;
+    return other is BagEntity && other.id == id;
   }
 
   @override
   int get hashCode => id.hashCode;
+
 }

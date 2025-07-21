@@ -2,14 +2,15 @@ import 'dart:convert';
 
 import 'package:floor/floor.dart';
 
-List<ProductModel> userFromJson(String str) => List<ProductModel>.from(
-  json.decode(str).map((x) => ProductModel.fromJson(x)),
+List<FavoriteEntity> userFromJson(String str) => List<FavoriteEntity>.from(
+  json.decode(str).map((x) => FavoriteEntity.fromJson(x)),
 );
 
-String userToJson(List<ProductModel> data) =>
+String userToJson(List<FavoriteEntity> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class ProductModel {
+@Entity(tableName: 'favorites')
+class FavoriteEntity {
   @PrimaryKey(autoGenerate: true)
   final int id;
   final String title;
@@ -22,7 +23,7 @@ class ProductModel {
   int count;
   bool isLiked;
 
-  ProductModel({
+  FavoriteEntity({
     required this.id,
     required this.title,
     required this.price,
@@ -35,8 +36,8 @@ class ProductModel {
     this.isLiked = false,
   });
 
-  factory ProductModel.fromJson(Map<String, dynamic> json) {
-    return ProductModel(
+  factory FavoriteEntity.fromJson(Map<String, dynamic> json) {
+    return FavoriteEntity(
       id: json['id'],
       title: json['title'],
       price: (json['price'] as num).toDouble(),
@@ -58,11 +59,13 @@ class ProductModel {
     "category": category,
     "image": image,
     "rating": {"rate": rate, "count": ratingCount},
+    "count": count,
+    "isLiked": isLiked,
   };
 
   @override
   bool operator ==(Object other) {
-    return other is ProductModel && other.id == id;
+    return other is FavoriteEntity && other.id == id;
   }
 
   @override

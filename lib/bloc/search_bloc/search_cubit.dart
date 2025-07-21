@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class SearchCubit extends Cubit<SearchState> {
   SearchCubit() : super(SearchState());
 
+
   void searchget(String controlle) {
     final controller = controlle.toLowerCase();
     emit(state.copyWith(isLoading: true));
@@ -14,7 +15,7 @@ class SearchCubit extends Cubit<SearchState> {
       emit(state.copyWith(filteredProducts: state.allProducts));
       return;
     }
-    state.filteredProducts.clear();
+    
     List<ProductModel> result = [];
 
     for (int i = 0; i < state.allProducts.length; i++) {

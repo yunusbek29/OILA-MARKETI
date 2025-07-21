@@ -27,7 +27,7 @@ class BagCubit extends Cubit<BagState> {
 
   void getProducts() async {
     final products =
-        await DatabaseServise.database?.productDao.getAllProducts() ?? [];
+        await DatabaseServise.database?.bagDao.getAllProducts() ?? [];
     emit(state.copyWith(bagList: products));
   }
 
@@ -40,7 +40,7 @@ class BagCubit extends Cubit<BagState> {
 
   void clearbagList() async {
     for (var element in state.bagList) {
-      await DatabaseServise.database?.productDao.removeProduct(element);
+      await DatabaseServise.database?.bagDao.removeProduct(element);
     }
     emit(state.copyWith(bagList: []));
   }

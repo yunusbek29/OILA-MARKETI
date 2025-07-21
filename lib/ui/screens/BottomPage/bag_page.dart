@@ -167,7 +167,7 @@ class _BagPageState extends State<BagPage> {
                                                         1) {
                                                       await DatabaseServise
                                                           .database
-                                                          ?.productDao
+                                                          ?.bagDao
                                                           .deleteProductById(
                                                             state
                                                                 .bagList[index]
@@ -197,8 +197,8 @@ class _BagPageState extends State<BagPage> {
                                                         .count++;
                                                     await DatabaseServise
                                                         .database
-                                                        ?.productDao
-                                                        .saveProduct(
+                                                        ?.bagDao
+                                                        .saveProducts(
                                                           state.bagList[index],
                                                         );
                                                     setState(() {});

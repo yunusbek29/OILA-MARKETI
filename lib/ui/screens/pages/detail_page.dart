@@ -6,6 +6,7 @@ import 'package:flutter_application_1/bloc/detail_bloc/detail_cubit.dart';
 import 'package:flutter_application_1/bloc/detail_bloc/detail_state.dart';
 import 'package:flutter_application_1/config/app_colors.dart';
 import 'package:flutter_application_1/data/local/database_servise.dart';
+import 'package:flutter_application_1/data/local/entry/favorite_entity.dart';
 import 'package:flutter_application_1/data/local/entry/product_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -40,6 +41,18 @@ class _DetailPageState extends State<DetailPage> {
         actions: [
           IconButton(
             onPressed: () async {
+              final favorite = FavoriteEntity(
+                id: widget.product.id,
+                title: widget.product.title,
+                price: widget.product.price,
+                description: widget.product.description,
+                category: widget.product.category,
+                image: widget.product.image,
+                rate: widget.product.rate,
+                ratingCount: widget.product.ratingCount,
+                count: widget.product.count,
+                isLiked: widget.product.isLiked,
+              );
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(
@@ -50,10 +63,8 @@ class _DetailPageState extends State<DetailPage> {
                     showCloseIcon: true,
                   ),
                 );
-              await DatabaseServise.database?.productDao.saveProduct(
-                widget.product,
-              );
-              BlocProvider.of<BagCubit>(context).count();
+
+              
             },
             icon: Icon(
               widget.product.isLiked ? Icons.favorite : Icons.favorite_border,
@@ -224,7 +235,7 @@ class _DetailPageState extends State<DetailPage> {
                           showCloseIcon: true,
                         ),
                       );
-                    await DatabaseServise.database?.productDao.saveProduct(
+                    await DatabaseServise.database?.bagDao.saveProduct(
                       widget.product,
                     );
                     BlocProvider.of<BagCubit>(context).count();

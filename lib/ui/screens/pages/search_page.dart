@@ -24,7 +24,6 @@ class _SearchPageState extends State<SearchPage> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       BlocProvider.of<SearchCubit>(context).getLoadList();
     });
-    BlocProvider.of<SearchCubit>(context).searchget(controller.text);
   }
 
   @override

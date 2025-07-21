@@ -2,9 +2,9 @@ import 'package:floor/floor.dart';
 import 'package:flutter_application_1/data/local/entry/product_model.dart';
 
 @dao
-abstract class ProductDao {
+abstract class BagDao {
   @Insert(onConflict: OnConflictStrategy.replace)
-  Future<void> saveProduct(ProductModel product);
+  Future<void> saveProducts(ProductModel product);
 
   @Query("SELECT * FROM products")
   Future<List<ProductModel>> getAllProducts();
@@ -17,5 +17,4 @@ abstract class ProductDao {
 
   @delete
   Future<void> removeProduct(ProductModel product);
-
 }

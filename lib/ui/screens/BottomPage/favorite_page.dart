@@ -4,7 +4,6 @@ import 'package:flutter_application_1/bloc/favorite_bloc/favorite_cubit.dart';
 import 'package:flutter_application_1/bloc/favorite_bloc/favorite_state.dart';
 import 'package:flutter_application_1/config/app_colors.dart';
 import 'package:flutter_application_1/config/app_texts.dart';
-import 'package:flutter_application_1/ui/screens/pages/detail_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -19,6 +18,7 @@ class _FavoritePageState extends State<FavoritePage> {
   @override
   void initState() {
     super.initState();
+    BlocProvider.of<FavoriteCubit>(context).getFavorite();
   }
 
   @override
@@ -43,87 +43,76 @@ class _FavoritePageState extends State<FavoritePage> {
                   itemCount: state.favoriteModel.length,
                   itemBuilder: (context, index) {
                     final product = state.favoriteModel[index];
-                    return InkWell(
-                      onTap: () async {
-                        final back = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => DetailPage(product: product),
-                          ),
-                        );
-                        if (back == 'setState') {
-                          setState(() {});
-                        } else {
-                          setState(() {});
-                        }
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                          left: 10.sp,
-                          right: 10.sp,
-                          top: 10.sp,
+                    return Padding(
+                      padding: EdgeInsets.only(
+                        left: 10.sp,
+                        right: 10.sp,
+                        top: 10.sp,
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.all(10.sp),
+                        decoration: BoxDecoration(
+                          color: AppColors.white,
+                          borderRadius: BorderRadius.circular(12.sp),
+                          border: Border.all(color: AppColors.grey),
+                          boxShadow: [
+                            BoxShadow(color: AppColors.grey, blurRadius: 4.r),
+                          ],
                         ),
-                        child: Container(
-                          padding: EdgeInsets.all(10.sp),
-                          decoration: BoxDecoration(
-                            color: AppColors.white,
-                            borderRadius: BorderRadius.circular(12.sp),
-                            border: Border.all(color: AppColors.grey),
-                            boxShadow: [
-                              BoxShadow(color: AppColors.grey, blurRadius: 4.r),
-                            ],
-                          ),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: CachedNetworkImage(
-                                  height: 50.w,
-                                  width: 50.h,
-                                  imageUrl: product.image,
-                                  placeholder: (context, url) => Center(
-                                    child: CircularProgressIndicator(
-                                      color: AppColors.orange,
-                                    ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: CachedNetworkImage(
+                                height: 50.w,
+                                width: 50.h,
+                                imageUrl: product.image,
+                                placeholder: (context, url) => Center(
+                                  child: CircularProgressIndicator(
+                                    color: AppColors.orange,
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 10.w),
-                              Expanded(
-                                flex: 3,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      product.title,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16.sp,
-                                      ),
+                            ),
+                            SizedBox(width: 10.w),
+                            Expanded(
+                              flex: 3,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    product.title,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16.sp,
                                     ),
-                                    SizedBox(height: 4.sp),
-                                    Text(
-                                      "\$${product.price}",
-                                      style: TextStyle(
-                                        color: AppColors.green,
-                                        fontSize: 14.sp,
-                                      ),
+                                  ),
+                                  SizedBox(height: 4.sp),
+                                  Text(
+                                    "\$${product.price}",
+                                    style: TextStyle(
+                                      color: AppColors.green,
+                                      fontSize: 14.sp,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                              IconButton(
-                                icon: Icon(
-                                  Icons.delete,
-                                  color: AppColors.red,
-                                  size: 17.sp,
-                                ),
-                                onPressed: () {},
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                Icons.delete,
+                                color: AppColors.red,
+                                size: 20.sp,
                               ),
-                            ],
-                          ),
+                              onPressed: () {
+                                BlocProvider.of<FavoriteCubit>(
+                                  context,
+                                ).clearbagList();
+                              },
+                            ),
+                          ],
                         ),
                       ),
                     );
