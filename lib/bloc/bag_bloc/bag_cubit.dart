@@ -1,6 +1,5 @@
 import 'package:flutter_application_1/bloc/bag_bloc/bag_state.dart';
 import 'package:flutter_application_1/data/local/database_servise.dart';
-import 'package:flutter_application_1/data/local/entry/product_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BagCubit extends Cubit<BagState> {
@@ -39,5 +38,10 @@ class BagCubit extends Cubit<BagState> {
     emit(state.copyWith());
   }
 
-
+  void clearbagList() async {
+    for (var element in state.bagList) {
+      await DatabaseServise.database?.productDao.removeProduct(element);
+    }
+    emit(state.copyWith(bagList: []));
+  }
 }

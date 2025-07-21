@@ -222,6 +222,70 @@ class _BagPageState extends State<BagPage> {
                         },
                       ),
                     ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 20.w, right: 20.w),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30.r),
+                          color: AppColors.orange,
+                        ),
+
+                        width: MediaQuery.sizeOf(context).width,
+                        height: 50.sp,
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(30.r),
+                          onTap: () async {
+                            BlocProvider.of<BagCubit>(context).clearbagList();
+                            showModalBottomSheet(
+                              isDismissible: false,
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Container(
+                                  height: 200.h,
+                                  width: MediaQuery.sizeOf(context).width,
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        'Thank you for your purchase!',
+                                        style: TextStyle(
+                                          fontSize: 20.sp,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(height: 10.h),
+                                      Text(
+                                        'Your order has been placed successfully.',
+                                        style: TextStyle(
+                                          fontSize: 16.sp,
+                                          color: AppColors.grey,
+                                        ),
+                                      ),
+                                      SizedBox(height: 20.h),
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text('Close'),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          child: Center(
+                            child: Text(
+                              'Buy products',
+                              style: TextStyle(
+                                fontSize: 20.sp,
+                                color: AppColors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10.h),
                     Container(
                       width: MediaQuery.sizeOf(context).width,
                       height: 40.sp,

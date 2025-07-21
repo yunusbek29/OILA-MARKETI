@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/bloc/bag_bloc/bag_cubit.dart';
 import 'package:flutter_application_1/bloc/detail_bloc/detail_cubit.dart';
 import 'package:flutter_application_1/bloc/detail_bloc/detail_state.dart';
+import 'package:flutter_application_1/bloc/favorite_bloc/favorite_cubit.dart';
 import 'package:flutter_application_1/config/app_colors.dart';
 import 'package:flutter_application_1/data/local/database_servise.dart';
 import 'package:flutter_application_1/data/local/entry/product_model.dart';
@@ -40,9 +41,23 @@ class _DetailPageState extends State<DetailPage> {
         actions: [
           IconButton(
             onPressed: () async {
+              BlocProvider.of<FavoriteCubit>(
+                context,
+              ).saveProducts(widget.product);
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  SnackBar(
+                    content: Row(
+                      children: [Icon(Icons.info), Text("Mahsulot saqlangan")],
+                    ),
+                    showCloseIcon: true,
+                  ),
+                );
               await DatabaseServise.database?.productDao.saveProduct(
                 widget.product,
               );
+              BlocProvider.of<BagCubit>(context).count();
             },
             icon: Icon(
               widget.product.isLiked ? Icons.favorite : Icons.favorite_border,

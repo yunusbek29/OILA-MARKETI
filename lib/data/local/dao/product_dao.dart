@@ -9,12 +9,13 @@ abstract class ProductDao {
   @Query("SELECT * FROM products")
   Future<List<ProductModel>> getAllProducts();
 
-  @Query("SELECT * FROM products WHERE productId = :id")
+  @Query("SELECT * FROM products WHERE id = :id")
   Future<ProductModel?> getProductById(int id);
 
-  @Query("DELETE FROM products WHERE productId = :id")
+  @Query("DELETE FROM products WHERE id = :id")
   Future<void> deleteProductById(int id);
 
   @delete
   Future<void> removeProduct(ProductModel product);
+
 }

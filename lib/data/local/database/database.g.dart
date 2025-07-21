@@ -175,7 +175,7 @@ class _$ProductDao extends ProductDao {
 
   @override
   Future<ProductModel?> getProductById(int id) async {
-    return _queryAdapter.query('SELECT * FROM products WHERE productId = ?1',
+    return _queryAdapter.query('SELECT * FROM products WHERE id = ?1',
         mapper: (Map<String, Object?> row) => ProductModel(
             id: row['id'] as int,
             title: row['title'] as String,
@@ -193,7 +193,7 @@ class _$ProductDao extends ProductDao {
   @override
   Future<void> deleteProductById(int id) async {
     await _queryAdapter.queryNoReturn(
-        'DELETE FROM products WHERE productId = ?1',
+        'DELETE FROM products WHERE id = ?1',
         arguments: [id]);
   }
 
