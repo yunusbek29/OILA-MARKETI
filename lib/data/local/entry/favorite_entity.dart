@@ -1,13 +1,4 @@
-import 'dart:convert';
-
 import 'package:floor/floor.dart';
-
-List<FavoriteEntity> userFromJson(String str) => List<FavoriteEntity>.from(
-  json.decode(str).map((x) => FavoriteEntity.fromJson(x)),
-);
-
-String userToJson(List<FavoriteEntity> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 @Entity(tableName: 'favorites')
 class FavoriteEntity {
@@ -20,8 +11,8 @@ class FavoriteEntity {
   final String image;
   final double rate;
   final int ratingCount;
-  int count;
-  bool isLiked;
+  final int count;
+  final bool isLiked;
 
   FavoriteEntity({
     required this.id,

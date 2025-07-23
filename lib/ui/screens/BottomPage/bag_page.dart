@@ -192,13 +192,14 @@ class _BagPageState extends State<BagPage> {
                                                 Text('${product.count}'),
                                                 IconButton(
                                                   onPressed: () async {
+                                                    
                                                     state
                                                         .bagList[index]
                                                         .count++;
                                                     await DatabaseServise
                                                         .database
                                                         ?.bagDao
-                                                        .saveProducts(
+                                                        .saveProduct(
                                                           state.bagList[index],
                                                         );
                                                     setState(() {});

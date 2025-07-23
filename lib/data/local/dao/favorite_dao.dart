@@ -1,11 +1,9 @@
 import 'package:floor/floor.dart';
 import 'package:flutter_application_1/data/local/entry/favorite_entity.dart';
-import 'package:flutter_application_1/data/local/entry/product_model.dart';
-
 @dao
 abstract class FavoriteDao {
   @Insert(onConflict: OnConflictStrategy.replace)
-  Future<void> saveFavorite(ProductModel product);
+  Future<void> saveFavorite(FavoriteEntity product);
 
   @Query("SELECT * FROM favorites")
   Future<List<FavoriteEntity>> getAllProducts();
@@ -17,5 +15,5 @@ abstract class FavoriteDao {
   Future<void> deleteProductById(int id);
 
   @delete
-  Future<void> removeProduct(ProductModel product);
+  Future<void> removeProduct(FavoriteEntity product);
 }

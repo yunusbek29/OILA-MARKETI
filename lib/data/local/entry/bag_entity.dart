@@ -1,14 +1,6 @@
-import 'dart:convert';
-
 import 'package:floor/floor.dart';
 
-List<BagEntity> userFromJson(String str) => List<BagEntity>.from(
-  json.decode(str).map((x) => BagEntity.fromJson(x)),
-);
-
-String userToJson(List<BagEntity> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
-@Entity(tableName: 'products')
+@Entity(tableName: 'bagEntitys')
 class BagEntity {
   @PrimaryKey(autoGenerate: true)
   final int id;
@@ -19,8 +11,8 @@ class BagEntity {
   final String image;
   final double rate;
   final int ratingCount;
-  int count;
-  bool isLiked;
+  final int count;
+  final bool isLiked;
 
   BagEntity({
     required this.id,
@@ -67,5 +59,4 @@ class BagEntity {
 
   @override
   int get hashCode => id.hashCode;
-
 }
