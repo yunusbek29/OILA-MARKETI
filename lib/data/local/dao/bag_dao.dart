@@ -8,7 +8,7 @@ abstract class BagDao {
   Future<void> saveProduct(ProductModel product);
 
   @Query("SELECT * FROM bagEntitys")
-  Future<List<BagEntity>> getAllProducts();
+  Future<List<ProductModel>> getAllProducts();
 
   @Query("SELECT * FROM bagEntitys WHERE id = :id")
   Future<ProductModel?> getProductById(int id);
