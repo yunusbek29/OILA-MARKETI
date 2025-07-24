@@ -23,8 +23,8 @@ class FavoriteEntity {
     required this.image,
     required this.rate,
     required this.ratingCount,
-    this.count = 1,
-    this.isLiked = false,
+    required this.count,
+    required this.isLiked,
   });
 
   factory FavoriteEntity.fromJson(Map<String, dynamic> json) {

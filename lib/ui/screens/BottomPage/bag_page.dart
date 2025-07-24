@@ -6,6 +6,7 @@ import 'package:flutter_application_1/bloc/bag_bloc/bag_state.dart';
 import 'package:flutter_application_1/config/app_colors.dart';
 import 'package:flutter_application_1/config/app_texts.dart';
 import 'package:flutter_application_1/data/local/database_servise.dart';
+import 'package:flutter_application_1/data/local/entry/bag_entity.dart';
 import 'package:flutter_application_1/ui/screens/pages/detail_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -58,7 +59,7 @@ class _BagPageState extends State<BagPage> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      DetailPage(product: product),
+                                      DetailPage(product: product,),
                                 ),
                               );
                               if (back == "setState") {
@@ -158,7 +159,7 @@ class _BagPageState extends State<BagPage> {
                                                 IconButton(
                                                   onLongPress: () =>
                                                       setState(() {
-                                                        product.count = 1;
+                                                        product.count == 1;
                                                       }),
                                                   onPressed: () async {
                                                     if (state
@@ -179,7 +180,7 @@ class _BagPageState extends State<BagPage> {
                                                     } else {
                                                       state
                                                           .bagList[index]
-                                                          .count--;
+                                                          .count - 1;
                                                     }
                                                     setState(() {});
                                                   },
@@ -192,14 +193,13 @@ class _BagPageState extends State<BagPage> {
                                                 Text('${product.count}'),
                                                 IconButton(
                                                   onPressed: () async {
-                                                    
                                                     state
                                                         .bagList[index]
                                                         .count++;
                                                     await DatabaseServise
                                                         .database
                                                         ?.bagDao
-                                                        .saveProduct(
+                                                        .saveProductById(
                                                           state.bagList[index],
                                                         );
                                                     setState(() {});

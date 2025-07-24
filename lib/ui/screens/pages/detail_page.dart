@@ -14,7 +14,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DetailPage extends StatefulWidget {
   final ProductModel product;
-  const DetailPage({super.key, required this.product});
+
+  const DetailPage({
+    super.key,
+    required this.product,
+  });
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -64,8 +68,6 @@ class _DetailPageState extends State<DetailPage> {
                     showCloseIcon: true,
                   ),
                 );
-
-              
             },
             icon: Icon(
               widget.product.isLiked ? Icons.favorite : Icons.favorite_border,
@@ -236,20 +238,9 @@ class _DetailPageState extends State<DetailPage> {
                           showCloseIcon: true,
                         ),
                       );
-                      final bagEntity = BagEntity(
-                id: widget.product.id,
-                title: widget.product.title,
-                price: widget.product.price,
-                description: widget.product.description,
-                category: widget.product.category,
-                image: widget.product.image,
-                rate: widget.product.rate,
-                ratingCount: widget.product.ratingCount,
-                count: widget.product.count,
-                isLiked: widget.product.isLiked,
-              );
-                    await DatabaseServise.database?.bagDao.saveProduct(
-                      bagEntity
+                    
+                    await DatabaseServise.database?.bagDao.saveProductById(
+                      widget.product,
                     );
                     BlocProvider.of<BagCubit>(context).count();
                   },

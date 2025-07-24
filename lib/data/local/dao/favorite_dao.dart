@@ -1,14 +1,13 @@
 import 'package:floor/floor.dart';
-import 'package:flutter_application_1/data/local/entry/favorite_entity.dart';
 import 'package:flutter_application_1/data/local/entry/product_model.dart';
 
 @dao
 abstract class FavoriteDao {
   @Insert(onConflict: OnConflictStrategy.replace)
-  Future<void> saveFavorite(ProductModel product);
+  Future<void> saveFavoriteById(ProductModel product);
 
   @Query("SELECT * FROM favorites")
-  Future<List<FavoriteEntity>> getAllProducts();
+  Future<List<ProductModel>> getAllProducts();
 
   @Query("SELECT * FROM favorites WHERE id = :id")
   Future<ProductModel?> getProductById(int id);

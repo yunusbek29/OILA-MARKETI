@@ -1,5 +1,6 @@
 import 'package:flutter_application_1/bloc/detail_bloc/detail_state.dart';
 import 'package:flutter_application_1/data/local/database_servise.dart';
+import 'package:flutter_application_1/data/local/entry/favorite_entity.dart';
 import 'package:flutter_application_1/data/local/entry/product_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,10 +34,12 @@ class DetailCubit extends Cubit<DetailState> {
 
   void addFavorite(ProductModel product) async {
     if (product.isLiked) {
-      await DatabaseServise.database?.favoriteDao.saveFavorite(product);
-      product.isLiked = false;
+
+
+      await DatabaseServise.database?.favoriteDao.saveFavoriteById(product);
+      product.isLiked == false;
     } else {
-      product.isLiked = true;
+      product.isLiked == true;
     }
   }
 }

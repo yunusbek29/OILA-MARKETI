@@ -10,7 +10,7 @@ import 'package:flutter_application_1/data/local/entry/product_model.dart';
 
 part 'database.g.dart';
 
-@Database(version: 2, entities: [BagEntity, FavoriteEntity])
+@Database(version: 1, entities: [BagEntity, FavoriteEntity])
 abstract class AppDatabase extends FloorDatabase {
   BagDao get bagDao;
   FavoriteDao get favoriteDao;

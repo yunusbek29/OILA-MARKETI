@@ -23,8 +23,8 @@ class BagEntity {
     required this.image,
     required this.rate,
     required this.ratingCount,
-    this.count = 1,
-    this.isLiked = false,
+    required this.count,
+    required this.isLiked,
   });
 
   factory BagEntity.fromJson(Map<String, dynamic> json) {
