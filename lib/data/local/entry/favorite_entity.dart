@@ -12,8 +12,8 @@ class FavoriteEntity {
   final String image;
   final double rate;
   final int ratingCount;
-  final int count;
-  final bool isLiked;
+   int count;
+   bool isLiked;
 
   FavoriteEntity({
     required this.id,
@@ -24,8 +24,8 @@ class FavoriteEntity {
     required this.image,
     required this.rate,
     required this.ratingCount,
-    required this.count,
-    required this.isLiked,
+    this.count = 0,
+    this.isLiked = false,
   });
 
   factory FavoriteEntity.fromJson(Map<String, dynamic> json) {

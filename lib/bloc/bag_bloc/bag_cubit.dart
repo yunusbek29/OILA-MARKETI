@@ -46,7 +46,7 @@ class BagCubit extends Cubit<BagState> {
 
   void count() {
     for (var i = 0; i < state.bagList.length; i++) {
-      state.bagList[i].count + 1;
+      state.bagList[i].count++;
     }
     emit(state.copyWith());
   }

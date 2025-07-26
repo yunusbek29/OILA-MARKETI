@@ -13,10 +13,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class DetailPage extends StatefulWidget {
   final ProductModel product;
 
-  const DetailPage({
-    super.key,
-    required this.product,
-  });
+  const DetailPage({super.key, required this.product});
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -44,16 +41,9 @@ class _DetailPageState extends State<DetailPage> {
         actions: [
           IconButton(
             onPressed: () async {
-              ScaffoldMessenger.of(context)
-                ..hideCurrentSnackBar()
-                ..showSnackBar(
-                  SnackBar(
-                    content: Row(
-                      children: [Icon(Icons.info), Text("Mahsulot saqlangan")],
-                    ),
-                    showCloseIcon: true,
-                  ),
-                );
+              BlocProvider.of<DetailCubit>(
+                context,
+              ).addToFavorite(widget.product.toFavoriteEntity());
             },
             icon: Icon(
               widget.product.isLiked ? Icons.favorite : Icons.favorite_border,
@@ -221,7 +211,7 @@ class _DetailPageState extends State<DetailPage> {
                           showCloseIcon: true,
                         ),
                       );
-                    
+
                     await DatabaseServise.database?.bagDao.saveProductById(
                       widget.product.toBagEntity(),
                     );

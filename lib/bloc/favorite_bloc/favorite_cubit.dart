@@ -6,11 +6,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class FavoriteCubit extends Cubit<FavoriteState> {
   FavoriteCubit() : super(FavoriteState());
 
-  void clearbagList() async {
-    for (var element in state.favoriteModel) {
-      await DatabaseServise.database?.favoriteDao.deleteProductById(element.id);
-    }
-    emit(state.copyWith(favoriteModel: []));
+  void removerFavoriteList(int id) async {
+    await DatabaseServise.database?.favoriteDao.deleteProductById(id);
+    final newFavorite = await DatabaseServise.database?.favoriteDao
+        .getAllProducts();
+    emit(state.copyWith(favoriteModel: newFavorite ?? []));
   }
 
   void getFavorite() async {
