@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:floor/floor.dart';
+import 'package:flutter_application_1/data/local/entry/bag_entity.dart';
+import 'package:flutter_application_1/data/local/entry/favorite_entity.dart';
 
 List<ProductModel> userFromJson(String str) => List<ProductModel>.from(
   json.decode(str).map((x) => ProductModel.fromJson(x)),
@@ -67,4 +69,34 @@ class ProductModel {
 
   @override
   int get hashCode => id.hashCode;
+
+  BagEntity toBagEntity() {
+    return BagEntity(
+      id: id,
+      title: title,
+      price: price,
+      description: description,
+      category: category,
+      image: image,
+      rate: rate,
+      ratingCount: ratingCount,
+      count: count,
+      isLiked: isLiked,
+    );
+  }
+
+    FavoriteEntity toFavoriteEntity() {
+    return FavoriteEntity(
+      id: id,
+      title: title,
+      price: price,
+      description: description,
+      category: category,
+      image: image,
+      rate: rate,
+      ratingCount: ratingCount,
+      count: count,
+      isLiked: isLiked,
+    );
+  }
 }

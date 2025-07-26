@@ -107,9 +107,9 @@ class _FavoritePageState extends State<FavoritePage> {
                                 size: 20.sp,
                               ),
                               onPressed: () {
-                                BlocProvider.of<FavoriteCubit>(
-                                  context,
-                                ).clearbagList();
+                                // BlocProvider.of<FavoriteCubit>(
+                                //   context,
+                                // ).clearbagList();
                               },
                             ),
                           ],

@@ -1,7 +1,6 @@
 import 'package:flutter_application_1/bloc/favorite_bloc/favorite_state.dart';
 import 'package:flutter_application_1/data/local/database_servise.dart';
 import 'package:flutter_application_1/data/local/entry/favorite_entity.dart';
-import 'package:flutter_application_1/data/local/entry/product_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FavoriteCubit extends Cubit<FavoriteState> {
@@ -15,7 +14,7 @@ class FavoriteCubit extends Cubit<FavoriteState> {
   }
 
   void getFavorite() async {
-    List<ProductModel> favorites = [];
+    List<FavoriteEntity> favorites = [];
     final favoriteList = await DatabaseServise.database?.favoriteDao
         .getAllProducts();
 

@@ -1,6 +1,5 @@
 import 'package:flutter_application_1/bloc/bag_bloc/bag_state.dart';
 import 'package:flutter_application_1/data/local/database_servise.dart';
-import 'package:flutter_application_1/data/local/entry/bag_entity.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BagCubit extends Cubit<BagState> {

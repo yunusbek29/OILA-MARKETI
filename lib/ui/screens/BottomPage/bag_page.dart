@@ -6,7 +6,6 @@ import 'package:flutter_application_1/bloc/bag_bloc/bag_state.dart';
 import 'package:flutter_application_1/config/app_colors.dart';
 import 'package:flutter_application_1/config/app_texts.dart';
 import 'package:flutter_application_1/data/local/database_servise.dart';
-import 'package:flutter_application_1/data/local/entry/bag_entity.dart';
 import 'package:flutter_application_1/ui/screens/pages/detail_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -59,7 +58,7 @@ class _BagPageState extends State<BagPage> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      DetailPage(product: product,),
+                                      DetailPage(product: product.toProductModel(),),
                                 ),
                               );
                               if (back == "setState") {
@@ -194,7 +193,7 @@ class _BagPageState extends State<BagPage> {
                                                 IconButton(
                                                   onPressed: () async {
                                                     state
-                                                        .bagList[index]
+                                                        .bagList[index].toProductModel()
                                                         .count++;
                                                     await DatabaseServise
                                                         .database
@@ -236,7 +235,7 @@ class _BagPageState extends State<BagPage> {
                         child: InkWell(
                           borderRadius: BorderRadius.circular(30.r),
                           onTap: () async {
-                            BlocProvider.of<BagCubit>(context).clearbagList();
+                            // BlocProvider.of<BagCubit>(context).clearbagList();
                             showModalBottomSheet(
                               isDismissible: false,
                               context: context,

@@ -1,6 +1,5 @@
 import 'package:flutter_application_1/bloc/detail_bloc/detail_state.dart';
 import 'package:flutter_application_1/data/local/database_servise.dart';
-import 'package:flutter_application_1/data/local/entry/favorite_entity.dart';
 import 'package:flutter_application_1/data/local/entry/product_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,29 +16,21 @@ class DetailCubit extends Cubit<DetailState> {
     emit(state.copyWith(bag: pro));
   }
 
-  void addToBag(ProductModel product) {
-    final List<ProductModel> newList = List.from(state.bag);
 
-    final index = newList.indexWhere((e) => e.id == product.id);
 
-    if (index != -1) {
-      newList[index].count++;
-    } else {
-      product.count = 1;
-      newList.add(product);
-    }
-
-    emit(state.copyWith(bag: newList));
-  }
-
-  void addFavorite(ProductModel product) async {
+  void addToFavorite(ProductModel product) async {
     if (product.isLiked) {
-
-
-      await DatabaseServise.database?.favoriteDao.saveFavoriteById(product);
-      product.isLiked == false;
+      await DatabaseServise.database?.favoriteDao.deleteProductById(
+        product.id,
+      );
+      product.isLiked = false;
     } else {
-      product.isLiked == true;
+      await DatabaseServise.database?.favoriteDao.saveProductById(
+        product.toFavoriteEntity(),
+      );
+      product.isLiked = true;
     }
   }
+
+
 }

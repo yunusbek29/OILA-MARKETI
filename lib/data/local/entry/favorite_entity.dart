@@ -1,4 +1,5 @@
 import 'package:floor/floor.dart';
+import 'package:flutter_application_1/data/local/entry/product_model.dart';
 
 @Entity(tableName: 'favorites')
 class FavoriteEntity {
@@ -61,4 +62,19 @@ class FavoriteEntity {
 
   @override
   int get hashCode => id.hashCode;
+
+  ProductModel toProductModel() {
+    return ProductModel(
+      id: id,
+      title: title,
+      price: price,
+      description: description,
+      category: category,
+      image: image,
+      rate: rate,
+      ratingCount: ratingCount,
+      count: count,
+      isLiked: isLiked,
+    );
+  }
 }

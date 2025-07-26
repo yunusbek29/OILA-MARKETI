@@ -4,7 +4,7 @@ import 'package:flutter_application_1/data/local/entry/product_model.dart';
 
 class BagState extends Equatable {
   final bool isEmpty;
-  final List<ProductModel> bagList;
+  final List<BagEntity> bagList;
   final List<ProductModel> allProduct;
 
   const BagState({
@@ -15,7 +15,7 @@ class BagState extends Equatable {
 
   BagState copyWith({
     bool? isEmpty,
-    List<ProductModel>? bagList,
+    List<BagEntity>? bagList,
     List<ProductModel>? allProduct,
   }) {
     return BagState(
