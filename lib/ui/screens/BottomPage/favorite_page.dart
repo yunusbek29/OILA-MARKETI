@@ -106,11 +106,19 @@ class _FavoritePageState extends State<FavoritePage> {
                                 color: AppColors.red,
                                 size: 20.sp,
                               ),
-                              onPressed: () {
+                              onPressed: () async {
                                 BlocProvider.of<FavoriteCubit>(
                                   context,
-                                ).removerFavoriteList(index);
-                                setState(() {});
+                                ).removeFavorite(product.toProductModel());
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      "Removed from favorites",
+                                      style: TextStyle(fontSize: 16.sp),
+                                    ),
+                                    duration: Duration(seconds: 2),
+                                  ),
+                                );
                               },
                             ),
                           ],

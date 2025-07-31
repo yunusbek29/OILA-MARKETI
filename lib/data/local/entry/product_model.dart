@@ -96,7 +96,7 @@ class ProductModel {
       rate: rate,
       ratingCount: ratingCount,
       count: count,
-      isLiked: isLiked,
+      isLiked: !isLiked,
     );
   }
 }

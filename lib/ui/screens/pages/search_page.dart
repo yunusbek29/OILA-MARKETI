@@ -29,12 +29,21 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColors.black,
+        title: Text(
+          'Search',
+          style: TextStyle(color: AppColors.white, fontSize: 20.sp),
+        ),
+        centerTitle: true,
+        iconTheme: IconThemeData(color: AppColors.white),
+      ),
       body: BlocBuilder<SearchCubit, SearchState>(
         builder: (context, state) {
           return Column(
             children: [
               Padding(
-                padding: EdgeInsets.only(top: 50.sp, left: 10.sp, right: 10.sp),
+                padding: EdgeInsets.only(top: 10.sp, left: 10.sp, right: 10.sp),
                 child: Container(
                   decoration: BoxDecoration(
                     color: AppColors.black,
@@ -47,7 +56,7 @@ class _SearchPageState extends State<SearchPage> {
                       onChanged: (text) {
                         BlocProvider.of<SearchCubit>(
                           context,
-                        ).searchget(controller.text);
+                        ).search(controller.text);
                       },
                       style: TextStyle(color: AppColors.white),
                       decoration: InputDecoration(
@@ -59,119 +68,138 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                 ),
               ),
-              Expanded(
-                child: state.isLoading
-                    ? Center(child: CircularProgressIndicator())
-                    : ListView.builder(
-                        itemCount: state.filteredProducts.length,
-                        itemBuilder: (context, index) {
-                          final product = state.filteredProducts[index];
-                          return InkWell(
-                            borderRadius: BorderRadius.circular(30.r),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      DetailPage(product: product),
-                                ),
-                              );
-                            },
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                left: 10.sp,
-                                right: 10.sp,
-                                bottom: 10.sp,
-                              ),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: AppColors.white,
-                                  borderRadius: BorderRadius.circular(12.r),
-                                  border: Border.all(color: AppColors.grey),
-                                ),
-                                child: Row(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.all(10.sp),
-                                      child: CachedNetworkImage(
-                                        height: 100.h,
-                                        width: 100.w,
-                                        imageUrl: product.image,
-                                        placeholder: (context, url) => Center(
-                                          child: CircularProgressIndicator(
-                                            color: AppColors.orange,
-                                          ),
+              state.isLoading
+                  ? Center(
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.orange,
+                        ),
+                      ),
+                    )
+                  : Expanded(
+                      child: state.isSearching
+                          ? Center(child: Text('Siz qidirgan mahsulot yoq'))
+                          : ListView.builder(
+                              itemCount: state.filteredProducts.length,
+                              itemBuilder: (context, index) {
+                                final product = state.filteredProducts[index];
+                                return InkWell(
+                                  borderRadius: BorderRadius.circular(30.r),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            DetailPage(product: product),
+                                      ),
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                      left: 10.sp,
+                                      right: 10.sp,
+                                      bottom: 10.sp,
+                                    ),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: AppColors.white,
+                                        borderRadius: BorderRadius.circular(
+                                          12.r,
+                                        ),
+                                        border: Border.all(
+                                          color: AppColors.grey,
                                         ),
                                       ),
-                                    ),
-                                    SizedBox(width: 10.w),
-                                    Expanded(
-                                      child: Stack(
+                                      child: Row(
                                         children: [
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                product.title,
-                                                maxLines: 1,
-                                                style: TextStyle(
-                                                  fontSize: 16.sp,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              Text(
-                                                product.category,
-                                                style: TextStyle(
-                                                  color: AppColors.grey,
-                                                  fontSize: 13.sp,
-                                                ),
-                                              ),
-                                              SizedBox(height: 4.h),
-                                              Row(
-                                                children: [
-                                                  RatingBar.readOnly(
-                                                    initialRating: product.rate,
-                                                    maxRating: 5,
-                                                    filledIcon: Icons.star,
-                                                    emptyIcon:
-                                                        Icons.star_border,
-                                                    halfFilledIcon:
-                                                        Icons.star_half,
-                                                    filledColor:
-                                                        AppColors.amber,
-                                                    size: 20.sp,
+                                          Padding(
+                                            padding: EdgeInsets.all(10.sp),
+                                            child: CachedNetworkImage(
+                                              height: 100.h,
+                                              width: 100.w,
+                                              imageUrl: product.image,
+                                              placeholder: (context, url) =>
+                                                  Center(
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                          color:
+                                                              AppColors.orange,
+                                                        ),
                                                   ),
-                                                  SizedBox(width: 4.w),
-                                                  Text(
-                                                    "(${product.ratingCount})",
-                                                    style: TextStyle(
-                                                      fontSize: 17.sp,
+                                            ),
+                                          ),
+                                          SizedBox(width: 10.w),
+                                          Expanded(
+                                            child: Stack(
+                                              children: [
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      product.title,
+                                                      maxLines: 1,
+                                                      style: TextStyle(
+                                                        fontSize: 16.sp,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(height: 4.h),
-                                              Text(
-                                                "${product.price}\$",
-                                                style: TextStyle(
-                                                  fontSize: 16.sp,
-                                                  fontWeight: FontWeight.bold,
+                                                    Text(
+                                                      product.category,
+                                                      style: TextStyle(
+                                                        color: AppColors.grey,
+                                                        fontSize: 13.sp,
+                                                      ),
+                                                    ),
+                                                    SizedBox(height: 4.h),
+                                                    Row(
+                                                      children: [
+                                                        RatingBar.readOnly(
+                                                          initialRating:
+                                                              product.rate,
+                                                          maxRating: 5,
+                                                          filledIcon:
+                                                              Icons.star,
+                                                          emptyIcon:
+                                                              Icons.star_border,
+                                                          halfFilledIcon:
+                                                              Icons.star_half,
+                                                          filledColor:
+                                                              AppColors.amber,
+                                                          size: 20.sp,
+                                                        ),
+                                                        SizedBox(width: 4.w),
+                                                        Text(
+                                                          "(${product.ratingCount})",
+                                                          style: TextStyle(
+                                                            fontSize: 17.sp,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    SizedBox(height: 4.h),
+                                                    Text(
+                                                      "${product.price}\$",
+                                                      style: TextStyle(
+                                                        fontSize: 16.sp,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
                                         ],
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ),
+                                  ),
+                                );
+                              },
                             ),
-                          );
-                        },
-                      ),
-              ),
+                    ),
             ],
           );
         },

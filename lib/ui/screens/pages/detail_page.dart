@@ -41,9 +41,27 @@ class _DetailPageState extends State<DetailPage> {
         actions: [
           IconButton(
             onPressed: () async {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  SnackBar(
+                    content: Row(
+                      children: [
+                        Icon(Icons.info),
+                        Text(
+                          widget.product.isLiked
+                              ? "Removed from favorites"
+                              : "Added to favorites",
+                        ),
+                      ],
+                    ),
+                    showCloseIcon: true,
+                  ),
+                );
               BlocProvider.of<DetailCubit>(
                 context,
-              ).addToFavorite(widget.product.toFavoriteEntity());
+              ).addToFavorite(widget.product);
+              widget.product.isLiked = !widget.product.isLiked;
             },
             icon: Icon(
               widget.product.isLiked ? Icons.favorite : Icons.favorite_border,
@@ -61,7 +79,7 @@ class _DetailPageState extends State<DetailPage> {
                 Stack(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 50, right: 50),
+                      padding: EdgeInsets.only(left: 50.w, right: 50.h),
                       child: CachedNetworkImage(
                         width: MediaQuery.sizeOf(context).width,
                         imageUrl: widget.product.image,
@@ -77,7 +95,7 @@ class _DetailPageState extends State<DetailPage> {
                 ),
                 SizedBox(height: 30.h),
                 Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  padding: EdgeInsets.only(left: 10.w, right: 10.w),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -179,6 +197,7 @@ class _DetailPageState extends State<DetailPage> {
                     ],
                   ),
                 ),
+                SizedBox(height: 80.h),
               ],
             ),
           );
