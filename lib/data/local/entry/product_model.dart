@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:floor/floor.dart';
 import 'package:flutter_application_1/data/local/entry/bag_entity.dart';
 import 'package:flutter_application_1/data/local/entry/favorite_entity.dart';
 
@@ -12,7 +10,6 @@ String userToJson(List<ProductModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class ProductModel {
-  @PrimaryKey(autoGenerate: true)
   final int id;
   final String title;
   final double price;
@@ -62,6 +59,32 @@ class ProductModel {
     "rating": {"rate": rate, "count": ratingCount},
   };
 
+  ProductModel copyWith({
+  int? id,
+  String? title,
+  double? price,
+  String? description,
+  String? category,
+  String? image,
+  double? rate,
+  int? ratingCount,
+  int? count,
+  bool? isLiked,
+}) {
+  return ProductModel(
+    id: id ?? this.id,
+    title: title ?? this.title,
+    price: price ?? this.price,
+    description: description ?? this.description,
+    category: category ?? this.category,
+    image: image ?? this.image,
+    rate: rate ?? this.rate,
+    ratingCount: ratingCount ?? this.ratingCount,
+    count: count ?? this.count,
+    isLiked: isLiked ?? this.isLiked,
+  );
+}
+
   @override
   bool operator ==(Object other) {
     return other is ProductModel && other.id == id;
@@ -85,7 +108,7 @@ class ProductModel {
     );
   }
 
-    FavoriteEntity toFavoriteEntity() {
+  FavoriteEntity toFavoriteEntity() {
     return FavoriteEntity(
       id: id,
       title: title,

@@ -5,11 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SearchCubit extends Cubit<SearchState> {
   SearchCubit() : super(SearchState());
-
-  void search(String controll) {
-    final controller = controll.toLowerCase();
+  void search(String controller) {
+    final searchText = controller.trim().toLowerCase();
     emit(state.copyWith(isLoading: true));
-    if (controller.isEmpty) {
+
+    if (searchText.isEmpty) {
       emit(
         state.copyWith(filteredProducts: state.allProducts, isLoading: false),
       );
@@ -19,20 +19,15 @@ class SearchCubit extends Cubit<SearchState> {
     List<ProductModel> result = [];
 
     for (int i = 0; i < state.allProducts.length; i++) {
-      if (state.allProducts[i].title.toLowerCase().contains(controller) ||
-          state.allProducts[i].category.toLowerCase().contains(controller)) {
-        result.add(state.allProducts[i]);
-      } else if (!state.allProducts[i].title.toLowerCase().contains(
-            controller,
-          ) ||
-          !state.allProducts[i].category.toLowerCase().contains(controller)) {
-        emit(state.copyWith(isLoading: false, isSearching: true));
-        return;
-      } else if (controller.isEmpty) {
-        emit(state.copyWith(isLoading: false, isSearching: false, filteredProducts: state.allProducts));
-        return;
+      final product = state.allProducts[i];
+      final title = product.title.toLowerCase();
+      final category = product.category.toLowerCase();
+
+      if (title.contains(searchText) || category.contains(searchText)) {
+        result.add(product);
       }
     }
+
     emit(state.copyWith(filteredProducts: result, isLoading: false));
   }
 
@@ -56,8 +51,6 @@ class SearchCubit extends Cubit<SearchState> {
   }
 
   void resetSearch() {
-    emit(
-      state.copyWith(filteredProducts: state.allProducts, isSearching: false),
-    );
+    emit(state.copyWith(filteredProducts: state.allProducts, isLoading: false));
   }
 }

@@ -4,7 +4,7 @@ import 'package:flutter_application_1/data/local/entry/favorite_entity.dart';
 @dao
 abstract class FavoriteDao {
   @Insert(onConflict: OnConflictStrategy.replace)
-  Future<void> saveProductById(FavoriteEntity roduct);
+  Future<void> saveProductById(FavoriteEntity product,);
 
   @Query("SELECT * FROM favorites")
   Future<List<FavoriteEntity>> getAllProducts();

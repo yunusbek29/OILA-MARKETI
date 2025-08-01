@@ -303,9 +303,9 @@ class _$FavoriteDao extends FavoriteDao {
   }
 
   @override
-  Future<void> saveProductById(FavoriteEntity roduct) async {
+  Future<void> saveProductById(FavoriteEntity product) async {
     await _favoriteEntityInsertionAdapter.insert(
-        roduct, OnConflictStrategy.replace);
+        product, OnConflictStrategy.replace);
   }
 
   @override

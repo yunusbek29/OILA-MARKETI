@@ -5,26 +5,22 @@ class SearchState extends Equatable {
   final List<ProductModel> allProducts;
   final List<ProductModel> filteredProducts;
   final bool isLoading;
-  final bool isSearching;
 
   const SearchState({
     this.allProducts = const [],
     this.filteredProducts = const [],
     this.isLoading = false,
-    this.isSearching = false,
   });
 
   SearchState copyWith({
     List<ProductModel>? allProducts,
     List<ProductModel>? filteredProducts,
     bool? isLoading,
-    bool? isSearching,
   }) {
     return SearchState(
       allProducts: allProducts ?? this.allProducts,
       filteredProducts: filteredProducts ?? this.filteredProducts,
       isLoading: isLoading ?? this.isLoading,
-      isSearching: isSearching ?? this.isSearching,
     );
   }
 
@@ -33,6 +29,5 @@ class SearchState extends Equatable {
     allProducts,
     filteredProducts,
     isLoading,
-    isSearching,
   ];
 }

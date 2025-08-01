@@ -77,7 +77,7 @@ class _SearchPageState extends State<SearchPage> {
                       ),
                     )
                   : Expanded(
-                      child: state.isSearching
+                      child: state.filteredProducts.isEmpty
                           ? Center(child: Text('Siz qidirgan mahsulot yoq'))
                           : ListView.builder(
                               itemCount: state.filteredProducts.length,

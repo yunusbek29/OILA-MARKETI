@@ -61,7 +61,9 @@ class _DetailPageState extends State<DetailPage> {
               BlocProvider.of<DetailCubit>(
                 context,
               ).addToFavorite(widget.product);
-              widget.product.isLiked = !widget.product.isLiked;
+              setState(() {
+                widget.product.isLiked = !widget.product.isLiked;
+              });
             },
             icon: Icon(
               widget.product.isLiked ? Icons.favorite : Icons.favorite_border,
