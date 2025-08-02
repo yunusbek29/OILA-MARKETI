@@ -77,4 +77,43 @@ class FavoriteEntity {
       isLiked: isLiked,
     );
   }
+  static FavoriteEntity get initial {
+    return FavoriteEntity(
+      id: 0,
+      title: '',
+      price: 0.0,
+      description: '',
+      category: '',
+      image: '',
+      rate: 0.0,
+      ratingCount: 0,
+      count: 0,
+      isLiked: false,
+    );
+  }
+  FavoriteEntity copyWith({
+    int? id,
+    String? title,
+    double? price,
+    String? description,
+    String? category,
+    String? image,
+    double? rate,
+    int? ratingCount,
+    int? count,
+    bool? isLiked,
+  }) {
+    return FavoriteEntity(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      price: price ?? this.price,
+      description: description ?? this.description,
+      category: category ?? this.category,
+      image: image ?? this.image,
+      rate: rate ?? this.rate,
+      ratingCount: ratingCount ?? this.ratingCount,
+      count: count ?? this.count,
+      isLiked: isLiked ?? this.isLiked,
+    );
+  }
 }

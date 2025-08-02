@@ -23,58 +23,70 @@ class _DetailPageState extends State<DetailPage> {
   @override
   void initState() {
     super.initState();
+    getFavorite();
+  }
+
+  void getFavorite() async {
+    BlocProvider.of<DetailCubit>(context).getFavorite(widget.product.id);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      appBar: AppBar(
-        backgroundColor: AppColors.grey,
-        title: Text(widget.product.title),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context, "setState");
-          },
-        ),
-        actions: [
-          IconButton(
-            onPressed: () async {
-              ScaffoldMessenger.of(context)
-                ..hideCurrentSnackBar()
-                ..showSnackBar(
-                  SnackBar(
-                    content: Row(
-                      children: [
-                        Icon(Icons.info),
-                        Text(
-                          widget.product.isLiked
-                              ? "Removed from favorites"
-                              : "Added to favorites",
-                        ),
-                      ],
-                    ),
-                    showCloseIcon: true,
-                  ),
-                );
-              BlocProvider.of<DetailCubit>(
-                context,
-              ).addToFavorite(widget.product);
-              setState(() {
-                widget.product.isLiked = !widget.product.isLiked;
-              });
-            },
-            icon: Icon(
-              widget.product.isLiked ? Icons.favorite : Icons.favorite_border,
-              color: AppColors.red,
+    return BlocBuilder<DetailCubit, DetailState>(
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor: AppColors.white,
+          appBar: AppBar(
+            backgroundColor: AppColors.grey,
+            title: Text(widget.product.title),
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.pop(context, "setState");
+              },
             ),
+            actions: [
+              IconButton(
+                onPressed: () async {
+                  ScaffoldMessenger.of(context)
+                    ..hideCurrentSnackBar()
+                    ..showSnackBar(
+                      SnackBar(
+                        content: Row(
+                          children: [
+                            Icon(Icons.info),
+                            Text(
+                              state.favorite.isLiked
+                                  ? "Removed from favorites"
+                                  : "Added to favorites",
+                            ),
+                          ],
+                        ),
+                        showCloseIcon: true,
+                      ),
+                    );
+
+                  if (state.favorite.isLiked) {
+                    BlocProvider.of<DetailCubit>(
+                      context,
+                    ).deleteFromFavorite(widget.product.id);
+                  } else {
+                    BlocProvider.of<DetailCubit>(
+                      context,
+                    ).addToFavorite(widget.product.toFavoriteEntity());
+                  }
+                  getFavorite();
+                },
+                icon: Icon(
+                  state.favorite.isLiked
+                      ? Icons.favorite
+                      : Icons.favorite_border,
+                  color: AppColors.red,
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-      body: BlocBuilder<DetailCubit, DetailState>(
-        builder: (context, state) {
-          return SingleChildScrollView(
+          body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
               children: [
@@ -202,62 +214,63 @@ class _DetailPageState extends State<DetailPage> {
                 SizedBox(height: 80.h),
               ],
             ),
-          );
-        },
-      ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(left: 30),
-        child: Row(
-          children: [
-            Expanded(
-              flex: 2,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.orange,
-                  borderRadius: BorderRadius.circular(50.r),
-                ),
-                height: 60.h,
-                child: ElevatedButton(
-                  onPressed: () async {
-                    ScaffoldMessenger.of(context)
-                      ..hideCurrentSnackBar()
-                      ..showSnackBar(
-                        SnackBar(
-                          content: Row(
-                            children: [
-                              Icon(Icons.info),
-                              Text("Mahsulot qoshildi"),
-                            ],
-                          ),
-                          showCloseIcon: true,
-                        ),
-                      );
+          ),
 
-                    await DatabaseServise.database?.bagDao.saveProductById(
-                      widget.product.toBagEntity(),
-                    );
-                    BlocProvider.of<BagCubit>(context).count();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.orange,
-                    foregroundColor: AppColors.white,
-                    shape: RoundedRectangleBorder(
+          floatingActionButton: Padding(
+            padding: const EdgeInsets.only(left: 30),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.orange,
                       borderRadius: BorderRadius.circular(50.r),
                     ),
-                  ),
-                  child: Text(
-                    "ADD TO BAG",
-                    style: TextStyle(
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.bold,
+                    height: 60.h,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        ScaffoldMessenger.of(context)
+                          ..hideCurrentSnackBar()
+                          ..showSnackBar(
+                            SnackBar(
+                              content: Row(
+                                children: [
+                                  Icon(Icons.info),
+                                  Text("Mahsulot qoshildi"),
+                                ],
+                              ),
+                              showCloseIcon: true,
+                            ),
+                          );
+
+                        await DatabaseServise.database?.bagDao.saveProductById(
+                          widget.product.toBagEntity(),
+                        );
+                        BlocProvider.of<BagCubit>(context).count();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.orange,
+                        foregroundColor: AppColors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50.r),
+                        ),
+                      ),
+                      child: Text(
+                        "ADD TO BAG",
+                        style: TextStyle(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

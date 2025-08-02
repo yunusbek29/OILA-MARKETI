@@ -37,7 +37,7 @@ class SearchCubit extends Cubit<SearchState> {
     final respone = await Product.GET(Product.GET_PRODUCT, {});
 
     if (respone != null) {
-      final newProduct = userFromJson(respone);
+      final newProduct = ProductFromJson(respone);
       emit(
         state.copyWith(
           allProducts: newProduct,

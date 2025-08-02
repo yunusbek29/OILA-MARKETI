@@ -2,11 +2,11 @@ import 'dart:convert';
 import 'package:flutter_application_1/data/local/entry/bag_entity.dart';
 import 'package:flutter_application_1/data/local/entry/favorite_entity.dart';
 
-List<ProductModel> userFromJson(String str) => List<ProductModel>.from(
+List<ProductModel> ProductFromJson(String str) => List<ProductModel>.from(
   json.decode(str).map((x) => ProductModel.fromJson(x)),
 );
 
-String userToJson(List<ProductModel> data) =>
+String ProductToJson(List<ProductModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class ProductModel {

@@ -12,7 +12,7 @@ class ShopCubit extends Cubit<ShopState> {
     final respone = await Product.GET(Product.GET_PRODUCT, {});
 
     if (respone != null) {
-      final newProduct = userFromJson(respone);
+      final newProduct = ProductFromJson(respone);
       emit(state.copyWith(productmodel: newProduct, isLoading: false));
     } else {
       emit(state.copyWith(isLoading: false));
@@ -33,7 +33,7 @@ class ShopCubit extends Cubit<ShopState> {
     final respone = await Product.GET(Product.GET_PRODUCT, {});
 
     if (respone != null) {
-      final newProduct = userFromJson(respone);
+      final newProduct = ProductFromJson(respone);
       state.productmodel.clear();
       emit(state.copyWith(productmodel: newProduct, isLoading: false));
     } else {
