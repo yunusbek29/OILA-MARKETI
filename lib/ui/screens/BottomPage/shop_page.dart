@@ -95,7 +95,7 @@ class _ShopPageState extends State<ShopPage> {
                       ? Center(
                           child: CircularProgressIndicator(
                             color: AppColors.orange,
-                            strokeAlign: 10.r,
+                            strokeAlign: 5.r,
                           ),
                         )
                       : Column(

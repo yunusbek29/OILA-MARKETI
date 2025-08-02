@@ -69,7 +69,7 @@ class _SearchPageState extends State<SearchPage> {
                 ),
               ),
               state.isLoading
-                  ? Center(
+                  ? Expanded(
                       child: Center(
                         child: CircularProgressIndicator(
                           color: AppColors.orange,
@@ -96,9 +96,10 @@ class _SearchPageState extends State<SearchPage> {
                                   },
                                   child: Padding(
                                     padding: EdgeInsets.only(
-                                      left: 10.sp,
-                                      right: 10.sp,
-                                      bottom: 10.sp,
+                                      top: 5.h,
+                                      left: 10.w,
+                                      right: 10.w,
+                                      bottom: 10.h,
                                     ),
                                     child: Container(
                                       decoration: BoxDecoration(
